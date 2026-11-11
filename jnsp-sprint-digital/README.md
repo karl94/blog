@@ -10,6 +10,7 @@
 |---|---|---|---|
 | 00 | **Prompt maître** réutilisable pour produire tout le dossier | [00-PROMPT-MAITRE.md](./00-PROMPT-MAITRE.md) | — |
 | 00b | **Prompt « dossier PDF »** : maquette complète et structurée de tout le projet en un seul PDF | [00b-PROMPT-DOSSIER-PDF.md](./00b-PROMPT-DOSSIER-PDF.md) | Tous |
+| 📘 | **Dossier de candidature complet (PDF, 69 pages)**, produit avec le prompt 00b | [SUIVO-dossier-JNSP-2026.pdf](./SUIVO-dossier-JNSP-2026.pdf) · [sources et rapport](./dossier-pdf/) | Tous |
 | 01 | Études : arbre à problèmes, coût du statu quo, TAM/SAM/SOM, benchmark, personas, plan de recherche, PESTEL, SWOT | [01-etudes.md](./01-etudes.md) | Pertinence, impact |
 | 02 | Business Model Canvas, Lean Canvas, Value Proposition Canvas | [02-business-model-canvas.md](./02-business-model-canvas.md) | Viabilité |
 | 03 | Product Vision Board + métriques (North Star) | [03-product-vision-board.md](./03-product-vision-board.md) | Pertinence, innovation |
