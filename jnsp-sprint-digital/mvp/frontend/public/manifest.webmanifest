@@ -1,0 +1,12 @@
+{
+  "name": "SUIVO — Suivi des demandes administratives",
+  "short_name": "SUIVO",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F8FAFC",
+  "theme_color": "#17603C",
+  "lang": "fr",
+  "icons": [
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

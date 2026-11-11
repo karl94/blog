@@ -1,0 +1,27 @@
+ID,Epic,Summary,Acceptance Criteria,MoSCoW,RICE,Story Points,Sprint
+US-01,E1 Identité & accès,"En tant qu'usager, je veux me connecter avec mon numéro et un code SMS","Code 6 chiffres valable 5 min; 5 essais max",Must,180,5,S1
+US-02,E1 Identité & accès,"En tant qu'administrateur, je veux créer des comptes agents rattachés à un service","Un agent ne voit que les dossiers de son service",Must,90,3,S1
+US-03,E2 Catalogue,"En tant qu'administrateur, je veux définir une procédure (étapes, service, SLA, pièces)","Procédure publiée versionnée",Must,120,5,S1
+US-04,E2 Catalogue,"En tant qu'usager, je veux voir les procédures avec délai total et pièces","Délai total = somme des SLA",Must,150,2,S1
+US-05,E3 Dépôt,"En tant qu'usager, je veux déposer une demande et recevoir un numéro de suivi","Format SUI-AAAA-NNNNNN; échéance calculée; SMS",Must,200,5,S2
+US-06,E3 Dépôt,"En tant qu'agent de guichet, je veux enregistrer une demande papier et imprimer un reçu QR","Reçu avec numéro + QR; usager notifié",Must,220,5,S2
+US-07,E4 Suivi,"En tant qu'usager, je veux voir la timeline de mon dossier","Affichage < 3 s en 3G; étapes horodatées",Must,300,5,S2
+US-08,E4 Suivi,"En tant que proche, je veux suivre un dossier sans compte avec le numéro","Données personnelles masquées",Must,250,3,S2
+US-09,E5 Traitement,"En tant qu'agent, je veux ma file triée par urgence","Vert / orange / rouge selon SLA",Must,160,3,S3
+US-10,E5 Traitement,"En tant qu'agent, je veux faire avancer un dossier en 1 clic","< 10 s; transfert au service suivant; notification",Must,280,3,S3
+US-11,E5 Traitement,"En tant qu'agent, je veux signaler une pièce manquante","Statut En attente usager; SLA suspendu",Must,210,3,S3
+US-12,E5 Traitement,"En tant qu'usager, je veux répondre à une demande de pièce","Retour dans la file; SLA relancé",Must,180,5,S3
+US-13,E5 Traitement,"En tant qu'agent, je veux rejeter avec motif obligatoire","Motif + commentaire",Must,90,2,S3
+US-14,E6 SLA,"En tant qu'usager, je veux relancer un dossier en retard","Uniquement si SLA dépassé; 1 relance / 48 h",Must,170,3,S3
+US-15,E6 SLA,"En tant que chef de service, je veux être alerté des retards","Alerte quotidienne; escalade à SLA+50 %",Should,120,5,S5
+US-16,E7 Notifications,"En tant qu'usager, je veux un SMS/WhatsApp à chaque changement d'étape","≤ 160 caractères; journal d'envoi",Must,300,5,S4
+US-17,E8 Pilotage,"En tant que décideur, je veux un tableau de bord des délais","Temps réel; export CSV",Must,140,5,S4
+US-18,E11 Conformité,"En tant que DPO, je veux un journal d'audit","Événements immuables",Must,100,3,S4
+US-19,E9 Inclusion,"En tant qu'usager sans smartphone, je veux le statut par USSD","Statut en 1 écran",Should,260,8,S5-S6
+US-20,E9 Inclusion,"En tant qu'usager, je veux l'appli et les SMS en langue locale ou vocal","i18n; messages vocaux",Should,150,8,S6
+US-21,E7 Notifications,"En tant qu'usager, je veux installer la PWA et consulter hors ligne","Dernier état en cache",Should,110,3,S5
+US-22,E10 Monétisation,"En tant qu'usager, je veux réserver un créneau de retrait","Paiement Mobile Money optionnel",Could,90,8,Post-MVP
+US-23,E10 Monétisation,"En tant qu'usager, je veux me faire livrer mon document","Partenaire logistique",Could,70,13,Post-MVP
+US-24,E10 Monétisation,"En tant qu'entreprise, je veux vérifier un statut par API avec consentement","Clé API; consentement horodaté",Could,60,8,Post-MVP
+US-25,E6 SLA,"En tant que système, je veux estimer la date de fin réelle","Médiane glissante 90 jours",Could,130,8,Post-MVP
+US-26,—,"Chat IA assistant démarches","Reporté",Won't,0,0,—
