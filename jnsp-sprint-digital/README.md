@@ -16,7 +16,7 @@
 | 05 | User workflows (dépôt, traitement, pièce manquante, relance, USSD, machine à états, arborescence) | [05-user-workflows.md](./05-user-workflows.md) | Pertinence |
 | 06 | Élaboration du processus : AS-IS → TO-BE, gains, SLA, RACI, conduite du changement, intégration aux SI, conformité | [06-processus.md](./06-processus.md) | Impact, passage à l'échelle |
 | 07 | Modèle financier 36 mois (Excel avec formules, 3 scénarios) | [07-modele-financier/](./07-modele-financier) | Viabilité |
-| 08 | Pitch deck (HTML + PDF), script de 3 minutes, 15 questions du jury | [08-pitch-deck/](./08-pitch-deck) | Pitch |
+| 08 | Pitch deck (PowerPoint, HTML et PDF), script de 3 minutes, 15 questions du jury | [08-pitch-deck/](./08-pitch-deck) | Pitch |
 | 09 | Maquettes, prototype, charte graphique | [09-maquettes-prototype.md](./09-maquettes-prototype.md) | Innovation, UX |
 | 10 | Organisation de la startup : organigrammes 0/12/36 mois, rôles, gouvernance OHADA, rituels, OKR, recrutement | [10-organisation.md](./10-organisation.md) | Équipe |
 | 11 | **MVP fonctionnel** React + Tailwind (PWA) · Node.js + Express · PostgreSQL | [mvp/](./mvp) | Faisabilité, démo |

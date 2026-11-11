@@ -1,6 +1,7 @@
 # 08 — Pitch deck et support de présentation
 
 - **Deck interactif** : [`pitch-deck.html`](./pitch-deck.html). Ouvrez-le dans un navigateur ; les flèches ← → (ou un balayage sur mobile) changent de diapositive, et le bouton « Plein écran » sert à la projection. Le fichier utilise les captures du dossier `../assets/captures`, il faut donc garder l'arborescence telle quelle.
+- **Version PowerPoint** : [`pitch-deck-suivo.pptx`](./pitch-deck-suivo.pptx), 12 diapositives 16:9 entièrement modifiables (thème, mises en page, graphiques natifs). Le **script oral est dans les notes du présentateur**. Regénération : `node generer-pptx.js`.
 - **Version PDF** (à envoyer ou imprimer) : [`pitch-deck.pdf`](./pitch-deck.pdf), 12 diapositives au format 16:9.
 
 | # | Diapositive | Critère du jury |
