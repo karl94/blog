@@ -51,3 +51,11 @@
 | 13 | Coût des SMS ? | 3 SMS par demande à 15 FCFA, puis bascule vers WhatsApp et les notifications push, qui coûtent environ 3 fois moins. |
 | 14 | Comment passer à l'échelle ? | Une procédure modélisée une fois est réutilisable dans les 201 communes. Les conventions-cadres ministérielles évitent de négocier commune par commune. |
 | 15 | Que ferez-vous du prix ? | Financer le pilote : terrain, formation des agents, passerelle SMS, hébergement local. |
+
+## Risques & hypothèses critiques
+1. **Chiffres non encore sourcés** : le jury peut demander d'où viennent les « 4 à 5 déplacements » et les « 7 000 FCFA ». *Parade* : présenter ces chiffres comme des hypothèses et montrer le plan de validation (livrable 01), ou mieux, les avoir validés avant le jury.
+2. **Démo en direct** : risque de panne réseau ou d'ordinateur. *Parade* : vidéo de secours de 60 s et captures intégrées au deck.
+3. **Diapositive Équipe** : elle doit montrer les vraies personnes, avec leur photo et une ligne de crédibilité chacune.
+
+## Prochaine action en 48 h
+Compléter la diapositive 11 avec l'équipe réelle et chronométrer une première répétition complète du pitch, démo comprise.

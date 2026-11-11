@@ -44,3 +44,11 @@ Critères du jury servis : viabilité économique, passage à l'échelle.
 | **Jobs** : traiter les dossiers, informer les usagers, rendre compte à la tutelle | **Produits & services** : file de traitement, mise à jour en 1 clic ou par scan de QR, tableau de bord SLA, rapports mensuels |
 | **Douleurs** : files d'attente, questions répétitives, absence de données, plaintes | **Anti-douleurs** : moins de passages « pour info », réponses automatiques, alertes avant dépassement |
 | **Gains** : reconnaissance, image moderne, arbitrages budgétaires fondés sur des données | **Créateurs de gains** : classement des services, indicateurs pour les JNSP, export pour la tutelle |
+
+## Risques & hypothèses critiques
+1. **Volonté de payer des administrations** : le prix de 3 à 12 M FCFA par an pour une commune n'est pas encore validé. *Test* : présenter 2 grilles de prix à 5 secrétaires généraux de mairie et noter laquelle déclenche une lettre d'intention.
+2. **Dépendance au B2G** : à 36 mois, plus de 85 % du chiffre d'affaires vient de l'État. *Parade* : développer l'API B2B dès le mois 19 et chercher des financements de bailleurs.
+3. **Revenus premium** : le taux de 3 % d'usagers qui paient un service est une hypothèse. *Test* : proposer la réservation d'un créneau de retrait pendant le pilote et mesurer la conversion.
+
+## Prochaine action en 48 h
+Organiser un atelier d'1 h avec un responsable financier de mairie pour tester le prix de la licence et le mode d'achat (budget de fonctionnement ou d'investissement).

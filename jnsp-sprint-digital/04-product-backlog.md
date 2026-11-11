@@ -71,3 +71,11 @@ Story au format standard • critères d'acceptation écrits • maquette liée 
 
 ## Definition of Done
 Code revu (1 relecteur) • tests automatisés verts (unitaires + API) • accessibilité vérifiée (contraste, lecteur d'écran) • fonctionne sur Android entrée de gamme en 3G simulée • documentation API à jour • déployé en préproduction • validé par le PO.
+
+## Risques & hypothèses critiques
+1. **Vélocité** : 20 points par sprint suppose 3 développeurs. Avec 2, le MVP terrain glisse d'environ 4 semaines. *Mesure* : vélocité réelle des sprints S1 et S2.
+2. **USSD (US-19)** : il dépend d'un accord avec un opérateur ou un agrégateur, dont le délai est inconnu. *Parade* : commencer par le SMS entrant (« SUIVI SUI-2026-000123 »).
+3. **Priorités RICE** : la portée (Reach) est estimée. On recalcule après les entretiens de découverte.
+
+## Prochaine action en 48 h
+Importer le CSV dans l'outil de backlog, puis tenir la première séance d'affinage avec toute l'équipe pour réestimer US-01 à US-08.

@@ -61,3 +61,11 @@ Critères du jury servis : innovation, qualité de l'expérience, faisabilité.
 
 ## 5. Tests d'utilisabilité prévus
 Protocole au livrable 01, §5.4 : 2 vagues de 8 participants, avec ces critères de succès : ≥ 85 % de réussite sans aide, suivi d'un dossier en moins de 30 s, SUS ≥ 75.
+
+## Risques & hypothèses critiques
+1. **Testé seulement par l'équipe** : aucun usager réel n'a encore utilisé les écrans. *Validation* : protocole du §5 (2 vagues de 8 personnes).
+2. **Lisibilité pour les usagers peu lettrés** : les textes restent en français écrit. *Parade* : pictogrammes, messages vocaux et assistance au guichet (US-20).
+3. **Couleurs** : le liseré orange-blanc-vert ne doit pas laisser croire à un site officiel de l'État. Tant qu'il n'y a pas de convention, aucun emblème ni mention gouvernementale.
+
+## Prochaine action en 48 h
+Faire tester le suivi d'un dossier à 5 personnes dans une salle d'attente de mairie, sur leur propre téléphone, et chronométrer.

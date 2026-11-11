@@ -61,3 +61,11 @@ Critère du jury servi : viabilité économique.
 | Retard de paiement public | Subventions bailleurs, revenus B2B2C/API encaissés immédiatement via Mobile Money, affacturage |
 | Cycle de vente public long | Pilote gratuit → convention cadre ministérielle couvrant plusieurs communes |
 | Coût SMS | Bascule progressive vers WhatsApp et push (≈ 3× moins cher) ; refacturation au-delà d'un quota |
+
+## Risques & hypothèses critiques
+1. **Rythme de signature** : c'est le premier levier du modèle. Une commune tous les 2 mois en année 1 suppose un sponsor actif.
+2. **Charges sociales et fiscalité** : le taux de 25 % de charges est une approximation, et l'impôt sur les sociétés et l'impôt minimum forfaitaire ne sont pas modélisés. *Action* : faire valider le modèle par un expert-comptable inscrit à l'Ordre.
+3. **Financements** : la subvention de 50 M FCFA au mois 10 et la levée de 250 M au mois 15 ne sont pas acquises. *Test de résistance* : dans le scénario pessimiste, la trésorerie reste positive, mais avec moins de 3 M FCFA au plus bas.
+
+## Prochaine action en 48 h
+Mettre le scénario actif sur « pessimiste » (`Hypothèses!C4 = 1`), identifier le mois de trésorerie la plus basse et préparer le plan B correspondant (report d'embauches).

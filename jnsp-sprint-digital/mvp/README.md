@@ -117,3 +117,11 @@ cd backend && npm test
 2. Tâche planifiée d'alertes et d'escalade (US-15) ; canal USSD (US-19).
 3. Webhooks entrants pour les plateformes de dépôt existantes ; API B2B avec consentement.
 4. Hébergement souverain, sauvegardes, supervision, tests de charge, audit de sécurité, déclaration ARTCI.
+
+## Risques & hypothèses critiques
+1. **SMS simulés** : les notifications ne partent pas encore réellement. *Action* : brancher un agrégateur SMS dans `src/notify.js`.
+2. **Pas encore prêt pour la production** : il manque la tâche planifiée d'escalade (US-15), la limitation du débit des requêtes OTP, un audit de sécurité, la supervision et les sauvegardes. Le MVP sert à la démonstration et au pilote encadré.
+3. **Mode démo** : le code OTP est renvoyé par l'API. Il faut impérativement mettre `DEMO_MODE=false` hors démonstration.
+
+## Prochaine action en 48 h
+Déployer le MVP sur un hébergement accessible publiquement (avec une URL de démo) et faire tourner le scénario de démo du jury sur un téléphone Android d'entrée de gamme en 3G.

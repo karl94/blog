@@ -25,3 +25,11 @@ Critères du jury servis : pertinence, innovation.
 3. **Tous les canaux, même sans smartphone** : SMS, USSD, guichet assisté.
 4. **Mesurer pour améliorer, pas pour punir** : les tableaux de bord valorisent les services qui s'améliorent.
 5. **Confiance** : données minimales, consentement explicite, journal de qui a consulté quoi.
+
+## Risques & hypothèses critiques
+1. **North Star mesurable** : « déplacements évités » est aujourd'hui estimé à partir des notifications envoyées. *Validation* : compter les passages « pour information » au guichet pilote avant puis après SUIVO (comptage manuel 2 jours par semaine).
+2. **Engagement des agents** : la cible de 90 % d'étapes mises à jour sous 24 h repose sur le soutien du sponsor. *Validation* : test avec 8 agents, action chronométrée à moins de 10 s.
+3. **Objectif de 25 administrations** : il dépend d'une convention-cadre ministérielle, sans laquelle le rythme est divisé par deux (voir le scénario pessimiste).
+
+## Prochaine action en 48 h
+Faire valider la vision et les 5 caractéristiques du produit par 3 agents de guichet et 3 usagers, puis retirer ce qui ne les fait pas réagir.

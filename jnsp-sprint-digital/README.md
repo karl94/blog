@@ -21,6 +21,26 @@
 | 10 | Organisation de la startup : organigrammes 0/12/36 mois, rôles, gouvernance OHADA, rituels, OKR, recrutement | [10-organisation.md](./10-organisation.md) | Équipe |
 | 11 | **MVP fonctionnel** React + Tailwind (PWA) · Node.js + Express · PostgreSQL | [mvp/](./mvp) | Faisabilité, démo |
 
+## Correspondance avec le prompt maître
+
+Chaque section du [prompt maître](./00-PROMPT-MAITRE.md) a son livrable, et chaque livrable se termine par « Risques & hypothèses critiques » et « Prochaine action en 48 h » (règle n° 8).
+
+| Section du prompt | Où la trouver |
+|---|---|
+| 0. Nom, promesse, pitch d'une phrase | [01-etudes.md §0](./01-etudes.md) |
+| 1. Études (1.1 à 1.6) | [01-etudes.md](./01-etudes.md) |
+| 2. Business Model Canvas, Lean Canvas, Value Proposition Canvas | [02-business-model-canvas.md](./02-business-model-canvas.md) |
+| 3. Product Vision Board | [03-product-vision-board.md](./03-product-vision-board.md) |
+| 4. Product backlog + export CSV | [04-product-backlog.md](./04-product-backlog.md) · [CSV](./04-product-backlog.csv) |
+| 5. User workflows (a) à (f) | [05-user-workflows.md](./05-user-workflows.md) |
+| 6. Élaboration du processus | [06-processus.md](./06-processus.md) |
+| 7. Modèle financier 36 mois, tableur avec formules | [07-modele-financier/](./07-modele-financier) |
+| 8. Prototype et maquettes | [09-maquettes-prototype.md](./09-maquettes-prototype.md) ; le prototype cliquable est le MVP |
+| 9. MVP | [mvp/](./mvp) |
+| 10. Pitch deck, script, questions du jury | [08-pitch-deck/](./08-pitch-deck) |
+| 11. Organisation de la startup | [10-organisation.md](./10-organisation.md) |
+| Format : sommaire, tableau des critères, checklist, plan J-30 → J-0 | Ce README |
+
 ## Chiffres clés
 
 | | |

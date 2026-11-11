@@ -118,3 +118,11 @@ R = Réalise, A = Approuve, C = Consulté, I = Informé.
 - Données minimales : téléphone, nom, type de procédure ; **aucune pièce sensible stockée dans le MVP**.
 - Suivi public par numéro : nom masqué (initiales), aucune donnée sensible.
 - Journal d'audit immuable de chaque action ; chiffrement TLS ; sauvegardes quotidiennes ; hébergement local envisagé.
+
+## Risques & hypothèses critiques
+1. **SLA de départ** : les délais du tableau §4 sont des valeurs initiales, pas des engagements officiels. *Parade* : les fixer avec chaque chef de service, puis les ajuster à partir des médianes réelles.
+2. **Gains annoncés** : les −60 à −80 % de déplacements sont une hypothèse. *Mesure* : enquête avant/après auprès de 100 usagers du pilote.
+3. **Résistance au changement** : la traçabilité peut être perçue comme de la surveillance. *Parade* : présenter les indicateurs par service (et non par agent) pendant le pilote, et valoriser la progression.
+
+## Prochaine action en 48 h
+Cartographier en personne le parcours AS-IS du certificat de nationalité au tribunal pilote : qui touche le dossier, combien de temps, où il attend.
