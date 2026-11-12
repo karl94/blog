@@ -375,7 +375,7 @@ async function telephone(fichier, sortieNom) {
       txt(s, `Texte événement ${k + 1}`, t, { x: x + 0.27, y, w: w - 0.32, h, fontSize: 10.5, valign: 'middle' });
     });
     txt(s, 'Bilan cas pratique', [{ text: 'Résultat : ', options: { bold: true, color: C.accent1 } }, { text: 'Awa ne se déplace que pour déposer et pour retirer ; chaque acteur sait à tout moment qui détient le dossier.' }], { x: M, y: 6.42, w: 13.333 - 2 * M, h: 0.4, fontSize: 14 });
-    s.addNotes("[≈ 1 min] Prenons un cas réel : Awa a perdu son père, fonctionnaire, et demande le capital décès pour ses jeunes frères. Elle dépose son dossier au guichet de la Fonction publique, qui l'enregistre et lui remet un reçu avec un QR code ; elle reçoit un SMS. L'agent constate qu'il manque un extrait de naissance : Awa est prévenue et l'envoie à distance. Le dossier passe à la liquidation des droits. Le délai est dépassé : SUIVO alerte le service et Awa relance en un clic ; l'étape est validée. Le Trésor met en paiement, Awa reçoit le SMS « dossier finalisé » et se déplace une seule fois pour le retrait.");
+    s.addNotes("[≈ 1 min] Prenons un cas concret : Awa a perdu son père, fonctionnaire, et demande le capital décès pour ses jeunes frères. Elle dépose son dossier au guichet de la Fonction publique, qui l'enregistre et lui remet un reçu avec un QR code ; elle reçoit un SMS. L'agent constate qu'il manque un extrait de naissance : Awa est prévenue et l'envoie à distance. Le dossier passe à la liquidation des droits. Le délai est dépassé : SUIVO alerte le service et Awa relance en un clic ; l'étape est validée. Le Trésor met en paiement, Awa reçoit le SMS « dossier finalisé » et se déplace une seule fois pour le retrait.");
   }
 
   // ============================================================ 7. Cas pratique — ce que reçoit Awa, ce que voit chaque acteur
@@ -476,44 +476,58 @@ async function telephone(fichier, sortieNom) {
 
   // ============================================================ 11. Faisabilité technique et opérationnelle
   {
-    const s = contenu(11, '5 · Faisabilité', 'Faisable techniquement, applicable dès demain');
+    const s = contenu(11, '5 · Faisabilité', 'Une faisabilité technique démontrée');
     const colonnes = [
       [ic.code, 'Faisabilité technique', [
-        'Un prototype qui fonctionne déjà : dépôt, suivi, file des agents, tableau de bord',
+        'Un prototype valide les fonctions clés : dépôt, suivi, file des agents, tableau de bord',
         'Des technologies standard et ouvertes : React, Node.js, PostgreSQL',
-        'Testé de bout en bout ; sécurisé : code SMS, droits par service, journal d\'audit',
-        'Une application légère, utilisable en 3G et hors connexion',
+        'Sécurité prévue dès la conception : code SMS, droits par service, journal d\'audit',
+        'Une application légère, pensée pour la 3G et le hors connexion',
       ]],
       [ic.engrenage, 'Faisabilité opérationnelle', [
         "Démarre sans attendre l'interconnexion : les agents utilisent SUIVO directement",
         'Intégration progressive aux systèmes existants : saisie, connecteur, puis API',
-        'Prise en main immédiate : une action = un clic ; formation courte sur site',
+        'Prise en main simple : une action = un clic ; formation courte sur site',
         'Respect de la protection des données (ARTCI) ; hébergement local possible',
       ]],
     ];
     const w = (CW - 0.3) / 2;
     colonnes.forEach(([icn, titre, points], k) => {
       const x = M + k * (w + 0.3);
-      carte(s, `Carte ${titre}`, x, 1.65, w, 3.55);
+      carte(s, `Carte ${titre}`, x, 1.65, w, 2.95);
       rond(s, `Icône ${titre}`, x + 0.25, 1.85, 0.6, icn, k ? C.accent2 : C.accent1);
       txt(s, `Titre ${titre}`, titre, { x: x + 1.0, y: 1.85, w: w - 1.2, h: 0.6, fontSize: 19, bold: true, valign: 'middle' });
       points.forEach((t, j) => {
-        const y = 2.65 + j * 0.62;
+        const y = 2.5 + j * 0.52;
         s.addImage({ objectName: `Coche ${titre} ${j + 1}`, data: icPrincipe, x: x + 0.3, y: y + 0.07, w: 0.26, h: 0.26, altText: 'Point validé' });
-        txt(s, `Point ${titre} ${j + 1}`, t, { x: x + 0.7, y, w: w - 0.95, h: 0.58, fontSize: 13.5, valign: 'top' });
+        txt(s, `Point ${titre} ${j + 1}`, t, { x: x + 0.7, y, w: w - 0.95, h: 0.5, fontSize: 13, valign: 'top' });
       });
     });
+    // Où en sommes-nous ? (la solution n'est pas encore prête pour un déploiement réel)
+    txt(s, 'Titre état', 'Où en sommes-nous ?', { x: M, y: 4.78, w: 1.6, h: 0.72, fontSize: 15, bold: true, color: C.accent2, valign: 'middle' });
+    const etat = [
+      ['Fait', 'Prototype de démonstration : faisabilité validée', C.accent1, C.background2],
+      ['À finaliser', 'Envoi réel des SMS, USSD, sécurité renforcée, hébergement', C.accent2, 'FFF4EA'],
+      ['Ensuite', 'Version prête pour le pilote, avec les administrations', C.accent5, C.background1],
+    ];
+    const ew = (CW - 1.7 - 2 * 0.35) / 3;
+    etat.forEach(([t, d, col, fond], k) => {
+      const x = M + 1.7 + k * (ew + 0.35);
+      s.addShape(pres.shapes.ROUNDED_RECTANGLE, { objectName: `État ${t}`, x, y: 4.78, w: ew, h: 0.72, rectRadius: 0.1, fill: { color: fond }, line: { color: col, width: 1.5 } });
+      txt(s, `Texte état ${t}`, [{ text: `${t} : `, options: { bold: true, color: col } }, { text: d }], { x: x + 0.15, y: 4.78, w: ew - 0.3, h: 0.72, fontSize: 12.5, valign: 'middle' });
+      if (k < 2) s.addShape(pres.shapes.RIGHT_ARROW, { objectName: `Flèche état ${k + 1}`, x: x + ew + 0.05, y: 5.02, w: 0.25, h: 0.24, fill: { color: C.accent2 }, line: { color: C.accent2 } });
+    });
     // Architecture
-    txt(s, 'Titre architecture', 'Architecture', { x: M, y: 5.45, w: 1.6, h: 0.9, fontSize: 15, bold: true, color: C.accent4, valign: 'middle' });
+    txt(s, 'Titre architecture', 'Architecture', { x: M, y: 5.75, w: 1.6, h: 0.8, fontSize: 15, bold: true, color: C.accent4, valign: 'middle' });
     const blocs = [['Application web et mobile', 'React + Tailwind (PWA)'], ['Serveur', 'Node.js + Express'], ['Base de données', 'PostgreSQL'], ['Notifications', 'SMS · WhatsApp · USSD']];
     const bw = 2.35, bx0 = M + 1.7, bg = (CW - 1.7 - 4 * bw) / 3;
     blocs.forEach(([t, d], k) => {
       const x = bx0 + k * (bw + bg);
-      s.addShape(pres.shapes.ROUNDED_RECTANGLE, { objectName: `Bloc ${t}`, x, y: 5.45, w: bw, h: 0.9, rectRadius: 0.1, fill: { color: k === 3 ? 'FFF4EA' : C.background1 }, line: { color: k === 3 ? C.accent2 : C.accent1, width: 1.5 } });
-      txt(s, `Texte bloc ${t}`, [{ text: t, options: { bold: true, breakLine: true } }, { text: d, options: { fontSize: 11, color: C.accent5 } }], { x: x + 0.1, y: 5.45, w: bw - 0.2, h: 0.9, fontSize: 13, align: 'center', valign: 'middle' });
-      if (k < 3) s.addShape(pres.shapes.RIGHT_ARROW, { objectName: `Flèche architecture ${k + 1}`, x: x + bw + (bg - 0.3) / 2, y: 5.78, w: 0.3, h: 0.24, fill: { color: C.accent1 }, line: { color: C.accent1 } });
+      s.addShape(pres.shapes.ROUNDED_RECTANGLE, { objectName: `Bloc ${t}`, x, y: 5.75, w: bw, h: 0.8, rectRadius: 0.1, fill: { color: k === 3 ? 'FFF4EA' : C.background1 }, line: { color: k === 3 ? C.accent2 : C.accent1, width: 1.5 } });
+      txt(s, `Texte bloc ${t}`, [{ text: t, options: { bold: true, breakLine: true } }, { text: d, options: { fontSize: 11, color: C.accent5 } }], { x: x + 0.1, y: 5.75, w: bw - 0.2, h: 0.8, fontSize: 13, align: 'center', valign: 'middle' });
+      if (k < 3) s.addShape(pres.shapes.RIGHT_ARROW, { objectName: `Flèche architecture ${k + 1}`, x: x + bw + (bg - 0.3) / 2, y: 6.03, w: 0.3, h: 0.24, fill: { color: C.accent1 }, line: { color: C.accent1 } });
     });
-    s.addNotes("[≈ 50 s] Sur le plan technique, ce n'est pas une maquette : le prototype fonctionne déjà, avec des technologies standard, ouvertes et maîtrisées localement ; il est testé de bout en bout, sécurisé, et assez léger pour la 3G. Sur le plan opérationnel, il démarre sans attendre que les systèmes soient interconnectés : les agents l'utilisent directement, puis on se branche progressivement aux outils existants. Une action, c'est un clic ; la formation est courte ; et la protection des données est prise en compte dès le départ.");
+    s.addNotes("[≈ 50 s] Soyons clairs : la solution n'est pas encore prête pour un déploiement réel. Mais sa faisabilité technique est démontrée : un prototype fait déjà fonctionner le dépôt, le suivi, la file des agents et le tableau de bord, avec des technologies standard et ouvertes ; il reste à finaliser l'envoi réel des SMS, le code USSD, le renforcement de la sécurité et l'hébergement, avant le pilote. Sur le plan opérationnel, il démarre sans attendre que les systèmes soient interconnectés : les agents l'utilisent directement, puis on se branche progressivement aux outils existants. Une action, c'est un clic ; la formation est courte ; et la protection des données est prise en compte dès le départ.");
   }
 
   // ============================================================ 12. Expérience utilisateur et inclusion
@@ -607,7 +621,7 @@ async function telephone(fichier, sortieNom) {
     motif(s, 15, true);
     txt(s, 'Surtitre demande', 'NOTRE DEMANDE', { x: 0.8, y: 1.0, w: 7, h: 0.4, fontSize: 14, bold: true, color: C.accent2, charSpacing: 2 });
     txt(s, 'Titre demande', 'Un pilote avec des administrations volontaires', { x: 0.8, y: 1.45, w: 11.7, h: 0.9, fontSize: 36, bold: true, color: C.background1 });
-    const d = [['Un sponsor', 'au ministère de tutelle'], ['Des administrations pilotes', 'Fonction publique, foncier, état civil'], ['Un accompagnement', '(concours, incubation) pour lancer le pilote']];
+    const d = [['Un sponsor', 'au ministère de tutelle'], ['Des administrations pilotes', 'Fonction publique, foncier, état civil'], ['Un accompagnement', 'pour finaliser la solution et lancer le pilote']];
     d.forEach(([b, t], i) => {
       const y = 2.85 + i * 0.95;
       s.addShape(pres.shapes.OVAL, { objectName: `Demande ${i + 1}`, x: 0.8, y: y + 0.12, w: 0.55, h: 0.55, fill: { color: C.accent2 }, line: { color: C.accent2 } });
@@ -617,7 +631,7 @@ async function telephone(fichier, sortieNom) {
     txt(s, 'Engagement titre', 'Notre engagement', { x: 8.7, y: 2.85, w: 3.9, h: 0.45, fontSize: 16, bold: true, color: C.accent2 });
     txt(s, 'Engagement texte', 'Mesurer avec vous, sur le terrain, les déplacements évités et les délais gagnés.', { x: 8.7, y: 3.35, w: 3.9, h: 1.6, fontSize: 22, bold: true, color: C.background1 });
     txt(s, 'Vision', "Pour qu'aucun Ivoirien n'ait plus à demander « où en est mon dossier ? »", { x: 0.8, y: 6.0, w: 11.7, h: 0.6, fontSize: 20, italic: true, color: C.background1 });
-    s.addNotes("[≈ 30 s] Nous vous demandons un pilote : un sponsor, des administrations volontaires — Fonction publique, foncier, état civil — et un accompagnement pour le lancer. Nous ne venons pas avec des chiffres promis : nous venons avec un outil qui fonctionne, et l'engagement de mesurer avec vous, sur le terrain, les déplacements évités et les délais gagnés. Pour qu'aucun Ivoirien n'ait plus à demander « où en est mon dossier ? ». Merci.");
+    s.addNotes("[≈ 30 s] Nous vous demandons un pilote : un sponsor, des administrations volontaires — Fonction publique, foncier, état civil — et un accompagnement pour le lancer. Nous ne venons pas avec des chiffres promis : nous venons avec une faisabilité technique démontrée par un prototype, et l'engagement de mesurer avec vous, sur le terrain, les déplacements évités et les délais gagnés. Pour qu'aucun Ivoirien n'ait plus à demander « où en est mon dossier ? ». Merci.");
   }
 
   await pres.writeFile({ fileName: OUT });
