@@ -101,7 +101,7 @@ async function valider(client, numero, user) {
     await notifier(client, {
       demandeId: d.id,
       telephone: d.usager_telephone,
-      message: `SUIVO ${d.numero}: votre document est PRÊT. Retrait: ${d.etapes[0].service}, ${d.etapes[0].organisme}.`,
+      message: `SUIVO ${d.numero}: votre dossier est finalisé. Rendez-vous: ${d.etapes[0].service}, ${d.etapes[0].organisme}.`,
     });
   }
 }

@@ -229,8 +229,8 @@ async function telephone(fichier, sortieNom) {
   {
     const s = contenu(3, 'Contexte', 'Trois personnes, une même attente');
     const p = [
-      ['avatar-awa', 'Awa, 29 ans', 'Commerciale à Yopougon · smartphone, WhatsApp', '« Récupérer mon permis de conduire pour mon travail, sans perdre de journées. »', 'Aucune date, des démarcheurs, des allers-retours.'],
-      ['avatar-konan', 'Konan, 52 ans', 'Planteur à Daloa · téléphone basique, lit peu le français', '« Obtenir l\'acte de naissance de mon fils sans aller trois fois en ville. »', 'Le coût du transport ; il dépend de ses enfants pour lire.'],
+      ['avatar-awa', 'Awa, 29 ans', 'Aînée, représente ses jeunes frères orphelins · smartphone', '« Obtenir le capital décès de notre père pour mes petits frères, sans faire le tour des bureaux. »', 'Aucune date, des démarcheurs, des allers-retours.'],
+      ['avatar-konan', 'Konan, 52 ans', 'Planteur à Daloa · téléphone basique, lit peu le français', '« Savoir où en est le titre foncier de ma plantation sans aller trois fois en ville. »', 'Le coût du transport ; il dépend de ses enfants pour lire.'],
       ['avatar-bamba', 'Mme Bamba, 41 ans', 'Agente de guichet en mairie · reçoit les usagers toute la journée', '« Répondre vite aux usagers et avoir moins de monde devant mon guichet. »', 'Questions répétitives, outils lents.'],
     ];
     const w = (CW - 2 * 0.35) / 3;
@@ -243,14 +243,14 @@ async function telephone(fichier, sortieNom) {
       txt(s, `Citation ${nom}`, citation, { x: x + 0.3, y: 3.6, w: w - 0.6, h: 1.65, fontSize: 17, italic: true, color: C.accent1 });
       txt(s, `Douleur ${nom}`, [{ text: 'Sa douleur : ', options: { bold: true, color: C.accent2 } }, { text: douleur }], { x: x + 0.3, y: 5.15, w: w - 0.6, h: 1.1, fontSize: 14 });
     });
-    s.addNotes("Le problème touche trois personnes. Awa, en ville, perd des journées de travail. Konan, à Daloa, n'a qu'un téléphone basique et paie cher chaque trajet. Et Mme Bamba, au guichet, passe ses journées à répondre « pas encore » au lieu de traiter les dossiers.");
+    s.addNotes("Le problème touche trois personnes. Awa a perdu son père, fonctionnaire : elle fait la demande de capital décès pour ses jeunes frères et perd des journées dans les bureaux. Konan, planteur à Daloa, attend le titre foncier de sa plantation ; il n'a qu'un téléphone basique et paie cher chaque trajet. Et Mme Bamba, au guichet, passe ses journées à répondre « pas encore » au lieu de traiter les dossiers.");
   }
 
   // ============================================================ 4. Solution
   {
     const s = contenu(4, 'La solution', 'Un numéro de suivi, une timeline, des notifications');
     const h = 5.05, w1 = h * telSuivi.ratio;
-    s.addImage({ objectName: 'Capture suivi public', path: telSuivi.chemin, x: M + 0.1, y: 1.65, w: w1, h, altText: 'Suivi public du dossier de permis de conduire : étape 2 sur 3, service responsable, retard', shadow: ombre() });
+    s.addImage({ objectName: 'Capture suivi public', path: telSuivi.chemin, x: M + 0.1, y: 1.65, w: w1, h, altText: 'Suivi public d\'un dossier de capital décès : étape 2 sur 3, liquidation des droits, en retard', shadow: ombre() });
     s.addImage({ objectName: 'Capture mes dossiers', path: telDossiers.chemin, x: M + w1 + 0.45, y: 1.65, w: w1, h, altText: 'Liste des dossiers de l\'usager avec leur progression', shadow: ombre() });
     // Repères numérotés sur la capture (positions relatives à l'image)
     const reperes = [[0.27, 'N° de suivi unique'], [0.355, 'Étape et service responsable'], [0.45, 'Délai restant ou retard']];
@@ -276,11 +276,11 @@ async function telephone(fichier, sortieNom) {
 
   // ============================================================ 5. Comment ça marche
   {
-    const s = contenu(5, 'Comment ça marche', 'Un seul déplacement : pour retirer le document');
-    const etapes = [[ic.depot, 'Dépôt', 'En ligne ou au guichet → n° + QR'], [ic.routage, 'Routage', 'De service en service, chaque étape a son délai'], [ic.suivi, 'Suivi', 'Notification à chaque étape'], [ic.retrait, 'Retrait', '« Votre document est prêt »']];
+    const s = contenu(5, 'Comment ça marche', 'Un seul déplacement, à la fin de la démarche');
+    const etapes = [[ic.depot, 'Dépôt', 'En ligne ou au guichet → n° + QR'], [ic.routage, 'Routage', 'De service en service, chaque étape a son délai'], [ic.suivi, 'Suivi', 'Notification à chaque étape'], [ic.retrait, 'Clôture', 'Dossier finalisé : retrait ou paiement']];
     const w = 2.55, g = (CW - 1.3 - 4 * w) / 3, x0 = M + 1.3;
     const usager = ['Dépose sa demande', 'Reçoit un SMS par étape', 'Répond ou relance à distance', 'Se déplace une seule fois'];
-    const admin = ['Enregistre ou scanne le QR', "Valide l'étape en 1 clic", 'Voit les retards et alertes', 'Remet le document'];
+    const admin = ['Enregistre ou scanne le QR', "Valide l'étape en 1 clic", 'Voit les retards et alertes', 'Remet le document ou verse le paiement'];
     etapes.forEach(([icn, t, d], i) => {
       const x = x0 + i * (w + g);
       carte(s, `Étape ${t}`, x, 1.7, w, 1.85);
@@ -305,7 +305,7 @@ async function telephone(fichier, sortieNom) {
     txt(s, 'Avant', [{ text: 'Avant', options: { fontSize: 13, color: C.accent5, breakLine: true } }, { text: 'Plusieurs allers-retours' }], { x: 8.2, y: 5.45, w: 2.0, h: 1.3, fontSize: 18, bold: true, color: C.accent5, valign: 'middle' });
     s.addShape(pres.shapes.RIGHT_ARROW, { objectName: 'Flèche avant après', x: 10.2, y: 5.92, w: 0.6, h: 0.36, fill: { color: C.accent2 }, line: { color: C.accent2 } });
     txt(s, 'Après', [{ text: 'Avec SUIVO', options: { fontSize: 13, color: C.accent2, breakLine: true } }, { text: 'Un seul déplacement' }], { x: 10.95, y: 5.45, w: 1.8, h: 1.3, fontSize: 18, bold: true, color: C.accent1, valign: 'middle' });
-    s.addNotes("Concrètement : on dépose en ligne ou au guichet et on reçoit un numéro. Le dossier passe de service en service, chacun avec son délai. L'usager est notifié à chaque étape, et l'agent n'a qu'un clic à faire. À la fin, un seul déplacement : pour retirer le document. Sans smartphone, le reçu QR, les SMS et l'USSD prennent le relais.");
+    s.addNotes("Concrètement : on dépose en ligne ou au guichet et on reçoit un numéro. Le dossier passe de service en service, chacun avec son délai. L'usager est notifié à chaque étape, et l'agent n'a qu'un clic à faire. À la fin, un seul déplacement : pour retirer le document, ou aucun si c'est un paiement. Sans smartphone, le reçu QR, les SMS et l'USSD prennent le relais.");
   }
 
   // ============================================================ 6. Valeur ajoutée par acteur

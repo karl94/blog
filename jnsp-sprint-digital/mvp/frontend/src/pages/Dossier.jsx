@@ -62,7 +62,7 @@ export default function Dossier() {
         <div className="carte space-y-3">
           <h3 className="font-semibold">Traiter l'étape « {d.etape_courante.nom} »</h3>
           <button className="btn-primaire w-full" onClick={() => action(`${base}/valider`, undefined, 'Étape validée — l\'usager est notifié.')}>
-            ✓ Valider l'étape{d.etape_ordre === d.etapes.length ? ' (document prêt)' : ' et transmettre'}
+            ✓ Valider l'étape{d.etape_ordre === d.etapes.length ? ' (dossier finalisé)' : ' et transmettre'}
           </button>
           <label htmlFor="msg" className="etiquette">Message (pièce manquante ou motif de rejet)</label>
           <textarea id="msg" className="champ" rows={2} value={texte} onChange={(e) => setTexte(e.target.value)} />

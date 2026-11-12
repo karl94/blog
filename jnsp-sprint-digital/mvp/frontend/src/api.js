@@ -17,8 +17,8 @@ export const STATUTS = {
   SOUMIS: { libelle: 'Déposé', classe: 'bg-slate-100 text-slate-700' },
   EN_COURS: { libelle: 'En traitement', classe: 'bg-vert-50 text-vert-700' },
   ATTENTE_USAGER: { libelle: 'Action requise', classe: 'bg-orange-100 text-orange-700' },
-  PRET: { libelle: 'Prêt à retirer', classe: 'bg-vert-700 text-white' },
-  RETIRE: { libelle: 'Retiré', classe: 'bg-slate-200 text-slate-600' },
+  PRET: { libelle: 'Finalisé', classe: 'bg-vert-700 text-white' },
+  RETIRE: { libelle: 'Clôturé', classe: 'bg-slate-200 text-slate-600' },
   REJETE: { libelle: 'Rejeté', classe: 'bg-red-100 text-red-700' },
 };
 

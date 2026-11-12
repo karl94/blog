@@ -19,8 +19,8 @@ export function BadgeNiveau({ niveau }) {
 export function Resume({ d }) {
   const e = d.etape_courante;
   let titre; let detail;
-  if (d.statut === 'PRET') { titre = 'Votre document est prêt'; detail = `À retirer : ${d.etapes[0].service}, ${d.etapes[0].organisme}`; }
-  else if (d.statut === 'RETIRE') { titre = 'Document retiré'; detail = 'Dossier clôturé.'; }
+  if (d.statut === 'PRET') { titre = 'Votre dossier est finalisé'; detail = `Document, paiement ou décision à récupérer : ${d.etapes[0].service}, ${d.etapes[0].organisme}`; }
+  else if (d.statut === 'RETIRE') { titre = 'Dossier clôturé'; detail = 'La démarche est terminée.'; }
   else if (d.statut === 'REJETE') { titre = 'Dossier rejeté'; detail = d.motif_rejet; }
   else if (d.statut === 'ATTENTE_USAGER') { titre = 'Action requise de votre part'; detail = d.message_attente; }
   else { titre = `Étape ${e.ordre}/${d.etapes.length} : ${e.nom}`; detail = `Chez : ${e.service} — ${e.organisme}`; }
@@ -70,7 +70,7 @@ export default function Timeline({ d }) {
       ))}
       <li className="flex gap-3 pt-5">
         <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 text-sm ${['PRET', 'RETIRE'].includes(d.statut) ? 'border-orange-500 bg-orange-500 text-white' : 'border-slate-300'}`}>★</span>
-        <p className={`self-center font-semibold ${['PRET', 'RETIRE'].includes(d.statut) ? 'text-slate-900' : 'text-slate-500'}`}>Document prêt à retirer</p>
+        <p className={`self-center font-semibold ${['PRET', 'RETIRE'].includes(d.statut) ? 'text-slate-900' : 'text-slate-500'}`}>Dossier finalisé</p>
       </li>
     </ol>
   );
@@ -79,7 +79,7 @@ export default function Timeline({ d }) {
 export function Historique({ evenements }) {
   const libelles = {
     DEPOT: 'Dossier déposé', ETAPE_VALIDEE: 'Étape validée', PIECE_MANQUANTE: 'Pièce demandée',
-    REPONSE_USAGER: 'Réponse de l\'usager', RELANCE: 'Relance', PRET: 'Document prêt', RETIRE: 'Document remis', REJET: 'Rejet',
+    REPONSE_USAGER: 'Réponse de l\'usager', RELANCE: 'Relance', PRET: 'Dossier finalisé', RETIRE: 'Dossier clôturé', REJET: 'Rejet',
   };
   return (
     <div className="carte">

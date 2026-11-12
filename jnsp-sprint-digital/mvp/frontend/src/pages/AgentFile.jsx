@@ -40,7 +40,7 @@ export default function AgentFile() {
           ['tous', 'À traiter', compte(filtres.tous), 'text-slate-900'],
           ['rouge', 'En retard', compte(filtres.rouge), 'text-red-700'],
           ['attente', 'Attente usager', compte(filtres.attente), 'text-orange-700'],
-          ['pret', 'Prêts à remettre', compte(filtres.pret), 'text-vert-700'],
+          ['pret', 'Finalisés à remettre', compte(filtres.pret), 'text-vert-700'],
         ].map(([k, l, n, c]) => (
           <button key={k} role="tab" aria-selected={filtre === k} onClick={() => setFiltre(k)}
             className={`carte text-left ${filtre === k ? 'border-vert-600 ring-4 ring-vert-100' : ''}`}>

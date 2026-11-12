@@ -26,6 +26,16 @@ async function agentDuService(c, serviceId) {
  * etapesValidees : nb d'étapes validées ; fin : 'piece' | 'rejet' | 'retire' | null
  * durees : durée (jours) de chaque étape validée ; ilYa : âge du dossier (jours)
  */
+// Pièce typiquement manquante, par démarche
+const PIECES = {
+  1: 'Merci de préciser la date et le lieu de naissance.',
+  2: 'Merci de fournir les extraits d\'acte de naissance des orphelins.',
+  3: 'Merci de fournir les plans signés par l\'architecte.',
+  4: 'Merci de fournir le plan du terrain établi par un géomètre expert.',
+  5: 'Merci de préciser le numéro du titre foncier.',
+};
+const SLA = { 1: [1, 1], 2: [3, 10, 5], 3: [5, 20, 5], 4: [3, 10, 7], 5: [1, 3] };
+
 async function scenario(c, { telephone, nom, procedureId, canal = 'en_ligne', etapesValidees = 0, fin = null, durees = [], ilYa }) {
   const { rows: [u] } = await c.query(
     `INSERT INTO utilisateurs (telephone, nom) VALUES ($1, $2) ON CONFLICT (telephone) DO UPDATE SET nom = utilisateurs.nom RETURNING id`,
@@ -36,8 +46,8 @@ async function scenario(c, { telephone, nom, procedureId, canal = 'en_ligne', et
     await D.valider(c, numero, await agentDuService(c, d.etape.service_id));
   }
   const d = await D.charger(c, numero);
-  if (fin === 'piece') await D.pieceManquante(c, numero, await agentDuService(c, d.etape.service_id), 'Merci de fournir deux photos d\'identité récentes.');
-  if (fin === 'rejet') await D.rejeter(c, numero, await agentDuService(c, d.etape.service_id), 'Acte introuvable dans le registre de la commune.');
+  if (fin === 'piece') await D.pieceManquante(c, numero, await agentDuService(c, d.etape.service_id), PIECES[procedureId]);
+  if (fin === 'rejet') await D.rejeter(c, numero, await agentDuService(c, d.etape.service_id), 'Dossier non recevable : pièces non conformes.');
   if (fin === 'retire') await D.remettre(c, numero, await agentDuService(c, d.etapes[0].service_id));
 
   // Réécriture des horodatages pour simuler l'historique
@@ -75,15 +85,15 @@ async function main() {
     await c.query('ALTER TABLE evenements DISABLE TRIGGER evenements_no_update');
     // Dossiers d'Awa (compte démo usager 0700000001)
     const awa = { telephone: '0700000001', nom: 'Awa Koné' };
-    const n1 = await scenario(c, { ...awa, procedureId: 2, etapesValidees: 1, durees: [2], ilYa: 12 }); // instruction en retard
-    const n2 = await scenario(c, { ...awa, procedureId: 1, etapesValidees: 2, durees: [1, 1], ilYa: 3 });  // prêt
-    const n3 = await scenario(c, { ...awa, procedureId: 2, fin: 'piece', ilYa: 1 });                      // pièce manquante
+    const n1 = await scenario(c, { ...awa, procedureId: 2, etapesValidees: 1, durees: [3], ilYa: 21 }); // capital décès : liquidation en retard
+    const n2 = await scenario(c, { ...awa, procedureId: 1, etapesValidees: 2, durees: [1, 1], ilYa: 3 });  // acte de naissance prêt
+    const n3 = await scenario(c, { ...awa, procedureId: 4, fin: 'piece', ilYa: 1 });                      // titre foncier : pièce manquante
 
     // Volume de démonstration pour le tableau de bord
     for (let i = 0; i < 60; i += 1) {
-      const procedureId = alea() < 0.55 ? 1 : alea() < 0.75 ? 2 : 3;
-      const nbEtapes = procedureId === 1 ? 2 : 3;
-      const sla = { 1: [1, 1], 2: [2, 5, 3], 3: [5, 20, 5] }[procedureId];
+      const procedureId = [1, 1, 1, 2, 2, 2, 4, 4, 5, 3][Math.floor(alea() * 10)];
+      const sla = SLA[procedureId];
+      const nbEtapes = sla.length;
       const etapesValidees = Math.floor(alea() * (nbEtapes + 1));
       const durees = sla.map((s) => Math.max(0.2, +(s * (0.4 + alea() * 1.4)).toFixed(1)));
       // Temps passé sur l'étape en cours : 0 à 1,15 × son SLA (une minorité de dossiers en retard)

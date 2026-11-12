@@ -28,19 +28,22 @@ cd frontend && npm install && npm run dev                      # http://localhos
 
 | Téléphone | Rôle | Pour montrer |
 |---|---|---|
-| `0700000001` | Usager — Awa Koné | Mes dossiers : 1 en retard (relance), 1 prêt, 1 avec pièce manquante |
-| `0700000020` | Agent — Guichet des transports | Réception des demandes de permis de conduire |
-| `0700000021` | Agent — Service des permis | File de travail, validation, pièce manquante |
-| `0700000022` | Agent — Délivrance des titres | Établissement du permis (dernière étape → « Prêt ») |
+| `0700000001` | Usager — Awa Koné, représentante légale de ses jeunes frères | Mes dossiers : capital décès en retard (relance), acte de naissance prêt, titre foncier avec pièce manquante |
+| `0700000020` | Agent — Guichet de la Fonction publique | Réception des demandes de capital décès |
+| `0700000021` | Agent — Liquidation des droits | File de travail, validation, pièce manquante |
+| `0700000022` | Agent — Service des paiements (Trésor) | Mise en paiement (dernière étape → « Prêt ») |
+| `0700000040` / `41` / `42` | Agents — Guichet unique du foncier / Cadastre / Conservation foncière | Titre foncier et état foncier |
 | `0700000010` | Agent — État civil (mairie) | Dépôt au guichet + reçu QR |
 | `0700000099` | Admin — Pilotage | Tableau de bord des délais |
+
+Démarches de démonstration : **capital décès** (orphelins d'un fonctionnaire décédé), **création de titre foncier**, **demande d'état foncier**, extrait d'acte de naissance, permis de construire. Les intitulés de services sont génériques, à remplacer par les intitulés officiels des administrations pilotes.
 
 Suivi public sans compte : `http://localhost:5173/suivi/SUI-2026-000001`
 
 ### Scénario de démo pour le jury (3 minutes)
-1. **Suivi public** du dossier `SUI-2026-000001` : étape 2/3, service responsable, **en retard de N jours**.
-2. Connexion **Awa** → *Mes dossiers* → elle **relance** le dossier en retard ; elle **répond** à la pièce manquante sans se déplacer.
-3. Connexion **agent du service des permis** → le dossier relancé est en tête de file, en rouge → **Valider l'étape** (1 clic) → Awa est notifiée.
+1. **Suivi public** du dossier de capital décès `SUI-2026-000001` : étape 2/3 « Liquidation des droits », service responsable, **en retard**.
+2. Connexion **Awa** → *Mes dossiers* → elle **relance** le dossier en retard ; elle **répond** à la pièce manquante de son dossier de titre foncier sans se déplacer.
+3. Connexion **agent de la liquidation des droits** → le dossier relancé est en tête de file, en rouge → **Valider l'étape** (1 clic) → Awa est notifiée.
 4. Connexion **agent état civil** → *Dépôt guichet* pour un usager sans smartphone → **reçu avec QR**.
 5. Connexion **admin** → *Pilotage* : déplacements évités, retards par service, délai réel vs prévu.
 

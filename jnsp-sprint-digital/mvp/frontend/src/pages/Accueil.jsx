@@ -38,7 +38,7 @@ export default function Accueil() {
         {[
           ['1', 'Déposez', 'En ligne ou au guichet : vous recevez un numéro de suivi par SMS.'],
           ['2', 'Suivez', 'Chaque étape validée vous est notifiée, avec le service et le délai.'],
-          ['3', 'Retirez', 'Vous ne vous déplacez qu\'une fois : quand c\'est prêt.'],
+          ['3', 'Finalisez', 'Vous ne vous déplacez qu\'une fois : quand c\'est prêt.'],
         ].map(([n, t, d]) => (
           <div key={n} className="carte">
             <span className="flex h-8 w-8 items-center justify-center rounded-full bg-orange-100 font-bold text-orange-700">{n}</span>

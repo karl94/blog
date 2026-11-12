@@ -37,7 +37,7 @@ export default function MesDossiers() {
                 </p>
               )}
               {d.statut === 'ATTENTE_USAGER' && <p className="text-sm font-medium text-orange-700">⚠ {d.message_attente}</p>}
-              {d.statut === 'PRET' && <p className="text-sm font-medium text-vert-700">Prêt — retrait : {d.etapes[0].service}</p>}
+              {d.statut === 'PRET' && <p className="text-sm font-medium text-vert-700">Finalisé — rendez-vous : {d.etapes[0].service}</p>}
               <div className="mt-3 flex gap-1" aria-hidden>
                 {d.etapes.map((e) => (
                   <span key={e.ordre} className={`h-1.5 flex-1 rounded-full ${e.etat === 'fait' ? 'bg-vert-600' : e.etat === 'en_cours' ? 'bg-orange-500' : 'bg-slate-200'}`} />

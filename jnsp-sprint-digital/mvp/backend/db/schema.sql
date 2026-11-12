@@ -13,7 +13,7 @@ CREATE TABLE services (
   organisme   TEXT NOT NULL
 );
 
--- Type de démarche (acte de naissance, permis de conduire…)
+-- Type de démarche (acte de naissance, capital décès, titre foncier…)
 CREATE TABLE procedures (
   id          SERIAL PRIMARY KEY,
   code        TEXT UNIQUE NOT NULL,
