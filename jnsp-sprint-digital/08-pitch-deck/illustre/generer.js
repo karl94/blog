@@ -106,9 +106,12 @@ async function icone(Composant, couleur = '#FFFFFF', taille = 256) {
 }
 
 // Capture dans un cadre de téléphone (coins arrondis, bord sombre)
-async function telephone(fichier, sortieNom) {
+async function telephone(fichier, sortieNom, masquerPied = false) {
   const W = 780, H = 1688, b = 26, r = 70;
-  const img = await sharp(path.join(CAP, fichier)).extract({ left: 0, top: 0, width: W, height: H }).png().toBuffer();
+  let img = await sharp(path.join(CAP, fichier)).extract({ left: 0, top: 0, width: W, height: H }).png().toBuffer();
+  // Masque le pied de page de l'application (mention technique sans intérêt pour une maquette)
+  const blanc = Buffer.from(`<svg width="${W}" height="160"><rect width="${W}" height="160" fill="#F8FAFC"/></svg>`);
+  if (masquerPied) img = await sharp(img).composite([{ input: blanc, left: 0, top: H - 160 }]).png().toBuffer();
   const masque = Buffer.from(`<svg width="${W}" height="${H}"><rect width="${W}" height="${H}" rx="${r}" fill="#fff"/></svg>`);
   const arrondie = await sharp(img).composite([{ input: masque, blend: 'dest-in' }]).png().toBuffer();
   const fond = Buffer.from(`<svg width="${W + 2 * b}" height="${H + 2 * b}"><rect width="${W + 2 * b}" height="${H + 2 * b}" rx="${r + b}" fill="#111827"/></svg>`);
@@ -124,7 +127,7 @@ async function telephone(fichier, sortieNom) {
     ['avatar-awa', 400], ['avatar-konan', 400], ['avatar-bamba', 400], ['colis-suivi', 900]]) img[n] = await rasteriser(n, w);
   const telAccueil = await telephone('01-accueil-mobile.png', 'tel-accueil');
   const telSuivi = await telephone('02-suivi-public-mobile.png', 'tel-suivi');
-  const telDossiers = await telephone('03-mes-dossiers-mobile.png', 'tel-dossiers');
+  const telDossiers = await telephone('03-mes-dossiers-mobile.png', 'tel-dossiers', true);
   // Captures « ordinateur » recadrées au format 16:10 pour la diapositive « ce que voit chaque acteur »
   const recadrer = async (f, nom) => {
     const sortie = path.join(PNG_DIR, `${nom}.png`);
@@ -206,7 +209,7 @@ async function telephone(fichier, sortieNom) {
     txt(s, 'Promesse', 'Votre dossier administratif, suivi comme un colis', { x: 0.8, y: 3.35, w: 6.4, h: 1.1, fontSize: 28, bold: true, color: C.background1 });
     txt(s, 'Problématique', 'Problématique : suivi des demandes administratives\nPlateforme web et mobile · SMS · WhatsApp · USSD', { x: 0.8, y: 4.75, w: 6.4, h: 0.8, fontSize: 16, color: C.accent6, paraSpaceAfter: 4 });
     s.addImage({ objectName: 'Illustration colis suivi', path: img['colis-suivi'], x: 6.75, y: 3.65, w: 2.9, h: 2.51, altText: 'Colis avec un repère de position et un trajet en pointillés : le dossier suivi comme un colis' });
-    s.addImage({ objectName: 'Capture écran d\'accueil', path: telAccueil.chemin, x: 9.75, y: 0.95, w: 5.7 * telAccueil.ratio, h: 5.7, altText: "Écran d'accueil de l'application SUIVO", shadow: ombre() });
+    s.addImage({ objectName: 'Capture écran d\'accueil', path: telAccueil.chemin, x: 9.75, y: 0.95, w: 5.7 * telAccueil.ratio, h: 5.7, altText: "Maquette — Écran d'accueil de l'application SUIVO", shadow: ombre() });
     s.addNotes("[≈ 20 s] Bonjour. Nous sommes SUIVO, et notre promesse tient en une phrase : suivre son dossier administratif comme on suit un colis.");
   }
 
@@ -275,10 +278,10 @@ async function telephone(fichier, sortieNom) {
 
   // ============================================================ 4. Solution
   {
-    const s = contenu(5, '2 · La solution proposée', 'Une plateforme de suivi des demandes');
+    const s = contenu(5, '2 · La solution proposée (maquettes)', 'Une plateforme de suivi des demandes');
     const h = 5.05, w1 = h * telSuivi.ratio;
-    s.addImage({ objectName: 'Capture suivi public', path: telSuivi.chemin, x: M + 0.1, y: 1.65, w: w1, h, altText: 'Suivi public d\'un dossier de capital décès : étape 2 sur 3, liquidation des droits, en retard', shadow: ombre() });
-    s.addImage({ objectName: 'Capture mes dossiers', path: telDossiers.chemin, x: M + w1 + 0.45, y: 1.65, w: w1, h, altText: 'Liste des dossiers de l\'usager avec leur progression', shadow: ombre() });
+    s.addImage({ objectName: 'Capture suivi public', path: telSuivi.chemin, x: M + 0.1, y: 1.65, w: w1, h, altText: 'Maquette — Suivi public d\'un dossier de capital décès : étape 2 sur 3, liquidation des droits, en retard', shadow: ombre() });
+    s.addImage({ objectName: 'Capture mes dossiers', path: telDossiers.chemin, x: M + w1 + 0.45, y: 1.65, w: w1, h, altText: 'Maquette — Liste des dossiers de l\'usager avec leur progression', shadow: ombre() });
     // Repères numérotés sur la capture (positions relatives à l'image)
     const reperes = [[0.27, 'N° de suivi unique'], [0.355, 'Étape et service responsable'], [0.45, 'Délai restant ou retard']];
     const ix = M + 0.1, iy = 1.65;
@@ -380,7 +383,7 @@ async function telephone(fichier, sortieNom) {
 
   // ============================================================ 7. Cas pratique — ce que reçoit Awa, ce que voit chaque acteur
   {
-    const s = contenu(8, '2 · Cas pratique', 'Ce que reçoit Awa, ce que voit chaque acteur');
+    const s = contenu(8, '2 · Cas pratique (maquettes)', 'Ce que reçoit Awa, ce que voit chaque acteur');
     // Téléphone avec les SMS reçus
     const px = M + 0.2, py = 1.6, pw = 3.55, ph = 5.2;
     s.addShape(pres.shapes.ROUNDED_RECTANGLE, { objectName: 'Téléphone', x: px, y: py, w: pw, h: ph, rectRadius: 0.35, fill: { color: H.dk1 }, line: { color: H.dk1 }, shadow: ombre() });
@@ -411,7 +414,7 @@ async function telephone(fichier, sortieNom) {
     ecrans.forEach(([f, t, d], k) => {
       const x = xr + k * (ew + 0.3);
       s.addShape(pres.shapes.RECTANGLE, { objectName: `Barre navigateur ${k + 1}`, x, y: 1.75, w: ew, h: 0.16, fill: { color: 'E2E8F0' }, line: { color: 'CBD5E1', width: 0.75 } });
-      s.addImage({ objectName: `Écran ${t}`, path: f, x, y: 1.91, w: ew, h: eh, altText: `${t} : ${d}` });
+      s.addImage({ objectName: `Écran ${t}`, path: f, x, y: 1.91, w: ew, h: eh, altText: `Maquette — ${t} : ${d}` });
       s.addShape(pres.shapes.RECTANGLE, { objectName: `Cadre écran ${k + 1}`, x, y: 1.75, w: ew, h: eh + 0.16, fill: { color: 'FFFFFF', transparency: 100 }, line: { color: 'CBD5E1', width: 0.75 } });
       txt(s, `Titre ${t}`, t, { x, y: 2.05 + eh, w: ew, h: 0.35, fontSize: 14, bold: true, color: C.accent1 });
       txt(s, `Texte ${t}`, d, { x, y: 2.42 + eh, w: ew, h: 0.6, fontSize: 13 });
@@ -419,7 +422,7 @@ async function telephone(fichier, sortieNom) {
     carte(s, 'Encadré traçabilité', xr, 5.45, wr, 1.3, C.background2);
     rond(s, 'Icône traçabilité', xr + 0.25, 5.78, 0.62, ic.etat, C.accent4);
     txt(s, 'Texte traçabilité', [{ text: 'Le ministère ', options: { bold: true, color: C.accent4 } }, { text: 'dispose de l\'historique complet du dossier : qui a fait quoi, quand, et si le délai a été respecté. Chaque action est enregistrée dans un journal qui ne peut pas être modifié.' }], { x: xr + 1.05, y: 5.45, w: wr - 1.25, h: 1.3, fontSize: 13, valign: 'middle' });
-    s.addNotes("[≈ 40 s] Voici ce que reçoit Awa : un SMS à chaque étape, sans jamais avoir à demander. De l'autre côté, l'agent de liquidation voit le dossier relancé remonter en tête de sa file ; il le valide en un clic. Le chef de service voit les retards de chaque service. Et le ministère dispose de l'historique complet et infalsifiable du dossier.");
+    s.addNotes("[≈ 40 s] Sur ces maquettes, voici ce que recevrait Awa : un SMS à chaque étape, sans jamais avoir à demander. De l'autre côté, l'agent de liquidation voit le dossier relancé remonter en tête de sa file ; il le valide en un clic. Le chef de service voit les retards de chaque service. Et le ministère dispose de l'historique complet et infalsifiable du dossier.");
   }
 
   // ============================================================ 9. Impact sur le citoyen et le service public
@@ -476,13 +479,13 @@ async function telephone(fichier, sortieNom) {
 
   // ============================================================ 11. Faisabilité technique et opérationnelle
   {
-    const s = contenu(11, '5 · Faisabilité', 'Une faisabilité technique démontrée');
+    const s = contenu(11, '5 · Faisabilité', 'Une faisabilité technique établie');
     const colonnes = [
       [ic.code, 'Faisabilité technique', [
-        'Un prototype valide les fonctions clés : dépôt, suivi, file des agents, tableau de bord',
-        'Des technologies standard et ouvertes : React, Node.js, PostgreSQL',
-        'Sécurité prévue dès la conception : code SMS, droits par service, journal d\'audit',
-        'Une application légère, pensée pour la 3G et le hors connexion',
+        'Fonctions clés conçues et maquettées : dépôt, suivi, file des agents, tableau de bord',
+        'Des technologies standard, ouvertes et éprouvées : React, Node.js, PostgreSQL',
+        'Des briques qui existent déjà : envoi de SMS, codes USSD, hébergement local',
+        'Sécurité intégrée à la conception : code SMS, droits par service, journal d\'audit',
       ]],
       [ic.engrenage, 'Faisabilité opérationnelle', [
         "Démarre sans attendre l'interconnexion : les agents utilisent SUIVO directement",
@@ -506,9 +509,9 @@ async function telephone(fichier, sortieNom) {
     // Où en sommes-nous ? (la solution n'est pas encore prête pour un déploiement réel)
     txt(s, 'Titre état', 'Où en sommes-nous ?', { x: M, y: 4.78, w: 1.6, h: 0.72, fontSize: 15, bold: true, color: C.accent2, valign: 'middle' });
     const etat = [
-      ['Fait', 'Prototype de démonstration : faisabilité validée', C.accent1, C.background2],
-      ['À finaliser', 'Envoi réel des SMS, USSD, sécurité renforcée, hébergement', C.accent2, 'FFF4EA'],
-      ['Ensuite', 'Version prête pour le pilote, avec les administrations', C.accent5, C.background1],
+      ['Fait', 'Analyse, parcours, conception et maquettes', C.accent1, C.background2],
+      ['À réaliser', 'Développement de la solution : SMS, USSD, sécurité, hébergement', C.accent2, 'FFF4EA'],
+      ['Ensuite', 'Pilote avec les administrations volontaires', C.accent5, C.background1],
     ];
     const ew = (CW - 1.7 - 2 * 0.35) / 3;
     etat.forEach(([t, d, col, fond], k) => {
@@ -527,14 +530,15 @@ async function telephone(fichier, sortieNom) {
       txt(s, `Texte bloc ${t}`, [{ text: t, options: { bold: true, breakLine: true } }, { text: d, options: { fontSize: 11, color: C.accent5 } }], { x: x + 0.1, y: 5.75, w: bw - 0.2, h: 0.8, fontSize: 13, align: 'center', valign: 'middle' });
       if (k < 3) s.addShape(pres.shapes.RIGHT_ARROW, { objectName: `Flèche architecture ${k + 1}`, x: x + bw + (bg - 0.3) / 2, y: 6.03, w: 0.3, h: 0.24, fill: { color: C.accent1 }, line: { color: C.accent1 } });
     });
-    s.addNotes("[≈ 50 s] Soyons clairs : la solution n'est pas encore prête pour un déploiement réel. Mais sa faisabilité technique est démontrée : un prototype fait déjà fonctionner le dépôt, le suivi, la file des agents et le tableau de bord, avec des technologies standard et ouvertes ; il reste à finaliser l'envoi réel des SMS, le code USSD, le renforcement de la sécurité et l'hébergement, avant le pilote. Sur le plan opérationnel, il démarre sans attendre que les systèmes soient interconnectés : les agents l'utilisent directement, puis on se branche progressivement aux outils existants. Une action, c'est un clic ; la formation est courte ; et la protection des données est prise en compte dès le départ.");
+    s.addNotes("[≈ 50 s] Soyons clairs : la solution n'est pas encore développée, et nous n'avons pas de prototype à faire tester aujourd'hui. En revanche, sa faisabilité technique est établie : les fonctions sont conçues et maquettées, elles reposent sur des technologies standard et éprouvées, et sur des briques qui existent déjà, comme l'envoi de SMS ou les codes USSD. Il reste à la développer, avec la sécurité et l'hébergement, avant le pilote. Sur le plan opérationnel, la solution démarrera sans attendre que les systèmes soient interconnectés : les agents l'utilisent directement, puis on se branche progressivement aux outils existants. Une action, c'est un clic ; la formation est courte ; et la protection des données est prise en compte dès le départ.");
   }
 
   // ============================================================ 12. Expérience utilisateur et inclusion
   {
     const s = contenu(12, '6 · Expérience utilisateur et inclusion', 'Simple pour chacun, accessible à tous');
-    const hT = 5.0, wT = hT * telSuivi.ratio;
-    s.addImage({ objectName: 'Capture suivi (expérience)', path: telSuivi.chemin, x: M, y: 1.65, w: wT, h: hT, altText: "Écran de suivi d'un dossier : la réponse en un coup d'œil", shadow: ombre() });
+    const hT = 4.85, wT = hT * telSuivi.ratio;
+    txt(s, 'Légende maquette', 'Maquette de l\'application', { x: M, y: 6.55, w: wT, h: 0.3, fontSize: 10, italic: true, color: C.accent5, align: 'center' });
+    s.addImage({ objectName: 'Capture suivi (expérience)', path: telSuivi.chemin, x: M, y: 1.65, w: wT, h: hT, altText: "Maquette — Écran de suivi d'un dossier : la réponse en un coup d'œil", shadow: ombre() });
     const xu = M + wT + 0.35, wu = 3.55;
     txt(s, 'Titre expérience', 'Une expérience simple', { x: xu, y: 1.65, w: wu, h: 0.45, fontSize: 19, bold: true, color: C.accent1 });
     [[ic.oeil, "La réponse en un coup d'œil", 'où est le dossier, qui le traite, quand il sera prêt'], [ic.texte, 'Un langage simple', 'des messages courts, sans jargon administratif'], [ic.clic, "Pour l'agent : une action, un clic", 'valider, demander une pièce, rejeter avec un motif']].forEach(([icn, t, d], k) => {
@@ -621,7 +625,7 @@ async function telephone(fichier, sortieNom) {
     motif(s, 15, true);
     txt(s, 'Surtitre demande', 'NOTRE DEMANDE', { x: 0.8, y: 1.0, w: 7, h: 0.4, fontSize: 14, bold: true, color: C.accent2, charSpacing: 2 });
     txt(s, 'Titre demande', 'Un pilote avec des administrations volontaires', { x: 0.8, y: 1.45, w: 11.7, h: 0.9, fontSize: 36, bold: true, color: C.background1 });
-    const d = [['Un sponsor', 'au ministère de tutelle'], ['Des administrations pilotes', 'Fonction publique, foncier, état civil'], ['Un accompagnement', 'pour finaliser la solution et lancer le pilote']];
+    const d = [['Un sponsor', 'au ministère de tutelle'], ['Des administrations pilotes', 'Fonction publique, foncier, état civil'], ['Un accompagnement', 'pour développer la solution et lancer le pilote']];
     d.forEach(([b, t], i) => {
       const y = 2.85 + i * 0.95;
       s.addShape(pres.shapes.OVAL, { objectName: `Demande ${i + 1}`, x: 0.8, y: y + 0.12, w: 0.55, h: 0.55, fill: { color: C.accent2 }, line: { color: C.accent2 } });
@@ -631,7 +635,7 @@ async function telephone(fichier, sortieNom) {
     txt(s, 'Engagement titre', 'Notre engagement', { x: 8.7, y: 2.85, w: 3.9, h: 0.45, fontSize: 16, bold: true, color: C.accent2 });
     txt(s, 'Engagement texte', 'Mesurer avec vous, sur le terrain, les déplacements évités et les délais gagnés.', { x: 8.7, y: 3.35, w: 3.9, h: 1.6, fontSize: 22, bold: true, color: C.background1 });
     txt(s, 'Vision', "Pour qu'aucun Ivoirien n'ait plus à demander « où en est mon dossier ? »", { x: 0.8, y: 6.0, w: 11.7, h: 0.6, fontSize: 20, italic: true, color: C.background1 });
-    s.addNotes("[≈ 30 s] Nous vous demandons un pilote : un sponsor, des administrations volontaires — Fonction publique, foncier, état civil — et un accompagnement pour le lancer. Nous ne venons pas avec des chiffres promis : nous venons avec une faisabilité technique démontrée par un prototype, et l'engagement de mesurer avec vous, sur le terrain, les déplacements évités et les délais gagnés. Pour qu'aucun Ivoirien n'ait plus à demander « où en est mon dossier ? ». Merci.");
+    s.addNotes("[≈ 30 s] Nous vous demandons un pilote : un sponsor, des administrations volontaires — Fonction publique, foncier, état civil — et un accompagnement pour le lancer. Nous ne venons pas avec des chiffres promis : nous venons avec une solution conçue de bout en bout, dont la faisabilité technique est établie, et l'engagement de mesurer avec vous, sur le terrain, les déplacements évités et les délais gagnés. Pour qu'aucun Ivoirien n'ait plus à demander « où en est mon dossier ? ». Merci.");
   }
 
   await pres.writeFile({ fileName: OUT });

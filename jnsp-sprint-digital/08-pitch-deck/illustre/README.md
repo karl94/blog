@@ -25,14 +25,14 @@ Aucune étude de marché n'ayant été menée, le deck **n'affiche aucun chiffre
 | 8 | 2 · Cas pratique | Ce que reçoit Awa (SMS), ce que voient l'agent, le chef de service, le ministère | 40 s |
 | 9 | 3 · Impact | Pour le citoyen (citoyen, sans smartphone, familles) / pour le service public (agent, chef de service, État) | 50 s |
 | 10 | 4 · Caractère innovant | Le suivi de colis appliqué au service public : 6 innovations | 45 s |
-| 11 | 5 · Faisabilité | Faisabilité technique démontrée par un prototype ; « Où en sommes-nous ? » (fait / à finaliser / ensuite) ; architecture | 50 s |
+| 11 | 5 · Faisabilité | Faisabilité technique établie (conception, technologies éprouvées, briques existantes) ; « Où en sommes-nous ? » (fait / à réaliser / ensuite) ; architecture | 50 s |
 | 12 | 6 · Expérience utilisateur et inclusion | Simplicité (écran réel) et 5 situations d'inclusion | 45 s |
 | 13 | 7 · Déploiement | Pilote → extension → généralisation ; pourquoi c'est reproductible | 40 s |
 | 14 | 7 · Pérennisation | Modèle durable : flux de valeur, principes, ancrage institutionnel | 40 s |
 | 15 | — | Notre demande et notre engagement | 30 s |
 | | | **Total** | **10 min** |
 
-**Statut présenté au jury :** la solution n'est pas encore prête pour un déploiement réel ; sa faisabilité technique est démontrée par un prototype. Restent à finaliser avant le pilote : l'envoi réel des SMS, le code USSD, le renforcement de la sécurité et l'hébergement.
+**Statut présenté au jury :** la solution n'est pas encore développée et il n'y a pas de prototype à tester. Sa faisabilité technique est établie : fonctions conçues et maquettées, technologies standard et éprouvées, briques existantes (SMS, USSD, hébergement local). Les visuels de l'application sont présentés comme des **maquettes**.
 
 Le minutage figure au début de chaque note du présentateur (« [≈ 45 s] »). Les éléments annoncés comme « prévus » (code USSD, messages vocaux en langues locales) ne sont pas encore développés dans le prototype : ils sont présentés honnêtement comme tels.
 
