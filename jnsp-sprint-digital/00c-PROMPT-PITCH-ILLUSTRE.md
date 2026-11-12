@@ -1,6 +1,6 @@
 # PROMPT — Pitch deck illustré SUIVO au format PowerPoint
 
-> Produit un pitch deck **court et très visuel** (.pptx), centré sur 6 sections : page de garde, contexte, solution, comment ça marche, marché, modèle économique.
+> Produit un pitch deck **court et très visuel** (.pptx) : page de garde, contexte, solution, comment ça marche, valeur ajoutée pour chaque acteur, modèle économique — **sans aucun chiffre ni estimation non mesurés**.
 > À utiliser avec une IA capable de lire les fichiers du dossier `jnsp-sprint-digital/` et de générer un fichier PowerPoint (Claude Code, par exemple). Collé dans un simple chat, fournissez-lui aussi le contenu des livrables cités.
 
 ---
@@ -23,8 +23,9 @@ Promesse du projet : « Votre dossier administratif, suivi comme un colis. »
 - 05-user-workflows.md : parcours usager et agent, parcours sans smartphone
 - 07-modele-financier/ : chiffres (lire les valeurs calculées du classeur, scénario central)
 - assets/captures/*.png : captures réelles de l'application (MVP)
-Tout chiffre marqué [H] dans les sources reste signalé comme hypothèse (petite mention « hypothèse à
-valider » ou astérisque + note de bas de diapositive).
+AUCUN CHIFFRE NI ESTIMATION NON MESURÉS : pas de taille de marché, de coût chiffré du problème, de prix,
+de chiffre d'affaires ni d'objectif chiffré. L'étude de marché n'a pas été faite : le deck démontre la
+VALEUR AJOUTÉE pour chaque acteur, de façon qualitative et vérifiable (démo, captures, parcours).
 
 # STRUCTURE (8 diapositives, 16:9)
 1. PAGE DE GARDE
@@ -37,8 +38,8 @@ valider » ou astérisque + note de bas de diapositive).
    - Titre-message : « Revenez la semaine prochaine. »
    - Illustration principale : une scène en 4 vignettes (style pictogrammes) — l'usager au guichet,
      dans le transport, au guichet à nouveau, encore au guichet — avec un compteur « 4–5 déplacements ».
-   - 3 chiffres clés en grand : 4–5 déplacements [H] · ≈ 7 000 FCFA perdus par démarche [H] ·
-     0 visibilité sur l'étape et le délai.
+   - 3 constats en icônes (sans chiffres) : des allers-retours répétés · du temps et de l'argent
+     perdus · aucune visibilité sur l'étape, le service et le délai.
    - Une phrase : personne, pas même l'administration, ne sait où est le dossier.
 
 3. CONTEXTE — qui souffre (personas)
@@ -61,27 +62,28 @@ valider » ou astérisque + note de bas de diapositive).
      → Retrait (« Votre document est prêt » : un seul déplacement).
    - Sous le schéma, deux couloirs (« Usager » / « Administration ») qui montrent qui fait quoi.
    - Encadré « Sans smartphone ? » : reçu QR au guichet, SMS, code USSD *XXX#.
-   - Comparaison visuelle avant/après : 4–5 déplacements → 1 seul.
+   - Comparaison visuelle avant/après : plusieurs allers-retours → un seul déplacement.
 
-6. LE MARCHÉ
-   - Graphique en cercles concentriques TAM / SAM / SOM (valeurs de 01-etudes.md, marquées [H]) :
-     ≈ 30 M démarches/an · ≈ 12 M à plusieurs étapes · ≈ 1,2 M suivies à 36 mois.
-   - Petite carte stylisée de la Côte d'Ivoire avec les points du pilote (Abidjan) puis de l'extension
-     (intérieur du pays), et une flèche « ensuite : UEMOA ».
-   - Une ligne sur les facteurs favorables : pénétration mobile, WhatsApp, Mobile Money, volonté
-     de modernisation.
+6. LA VALEUR AJOUTÉE POUR CHAQUE ACTEUR
+   - Titre-message : « Ce que SUIVO change pour chaque acteur ».
+   - 6 cartes avec icône : le citoyen · l'usager sans smartphone · l'agent de guichet · le chef de
+     service · le ministère / l'État · les partenaires (plateformes existantes, banques, employeurs).
+   - Pour chacun, 2 ou 3 gains concrets et vérifiables (ex. : « mise à jour en 1 clic »,
+     « alerté avant la plainte », « mesure les délais réels de ses services »). Aucun chiffre.
 
 7. LE MODÈLE ÉCONOMIQUE
-   - Titre-message : « Gratuit pour le citoyen, payé par ceux qui en tirent de la valeur. »
-   - Schéma de flux de valeur : Citoyen (gratuit) ← SUIVO → Administrations (licence SaaS),
-     Entreprises (API), Usagers volontaires (services premium) ; flèches « valeur » et « paiement ».
-   - Graphique NATIF en barres : chiffre d'affaires année 3 par source (valeurs du modèle).
-   - 3 chiffres : prix d'une licence communale (3 à 12 M FCFA/an) · marge brute année 3 · CA année 3.
-   - Mention : « Le suivi de base reste toujours gratuit. »
+   - Titre-message : « Gratuit pour le citoyen, payé par les bénéficiaires. »
+   - Schéma de flux de valeur : Citoyen (gratuit) ← SUIVO → Administrations (abonnement),
+     Usagers volontaires (services optionnels), Entreprises (vérification de statut) ; flèches
+     « valeur » et « paiement ». Aucun prix.
+   - « Nos principes » : suivi de base toujours gratuit ; l'administration paie un outil qui fait
+     gagner du temps à ses agents ; revenus complémentaires optionnels ; tarifs construits avec les
+     pilotes à partir des gains mesurés.
 
 8. CONCLUSION (diapositive de clôture)
-   - La demande (pilote de 6 mois : un sponsor, une commune, un tribunal) et l'objectif
-     « 10 000 déplacements évités par mois », sur fond vert foncé.
+   - La demande (un sponsor, une commune et un tribunal pilotes, un accompagnement) et l'engagement
+     « mesurer avec vous, sur le terrain, les déplacements évités et les délais gagnés », sur fond
+     vert foncé.
 
 # DIRECTION ARTISTIQUE
 - Palette : vert #17603C (dominant, ~60 %), vert foncé #0C3320 (garde et clôture), orange #F28C28
@@ -112,15 +114,15 @@ valider » ou astérisque + note de bas de diapositive).
 1. Convertir le deck en images et vérifier chaque diapositive : aucun texte qui déborde ou est coupé,
    aucun élément qui se chevauche, marges ≥ 1,2 cm, titres alignés au même endroit sur toutes les
    diapositives de contenu, style d'illustration homogène.
-2. Vérifier chaque chiffre contre sa source ; les hypothèses sont signalées.
+2. Vérifier qu'aucun chiffre ou estimation non mesuré n'apparaît (diapositives et notes).
 3. Vérifier que le fichier s'ouvre sans réparation (PowerPoint, Google Slides, Keynote).
 
 # LIVRABLES
 1. SUIVO-pitch-illustre.pptx
 2. Une version PDF du même deck
 3. Les illustrations sources (SVG) dans un dossier, pour pouvoir les réutiliser
-4. Un court rapport : diapositives produites, chiffres utilisés et leur source, ce qui reste à
-   personnaliser (photos et noms de l'équipe, logo définitif).
+4. Un court rapport : diapositives produites, sources du contenu, ce qui reste à personnaliser
+   (photos et noms de l'équipe, logo définitif).
 ```
 
 ---

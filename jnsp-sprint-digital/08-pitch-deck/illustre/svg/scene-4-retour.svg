@@ -2,7 +2,7 @@
     <rect x="160" y="40" width="130" height="120" rx="14" fill="#fff" stroke="#17603C" stroke-width="6"/>
     <rect x="160" y="40" width="130" height="34" rx="12" fill="#17603C"/><rect x="160" y="62" width="130" height="12" fill="#17603C"/>
     <rect x="186" y="28" width="10" height="26" rx="5" fill="#0F172A"/><rect x="254" y="28" width="10" height="26" rx="5" fill="#0F172A"/>
-    <text x="225" y="138" text-anchor="middle" font-family="Inter" font-weight="800" font-size="50" fill="#F28C28">×3</text>
+    <text x="225" y="138" text-anchor="middle" font-family="Inter" font-weight="800" font-size="50" fill="#F28C28">!</text>
     <g transform="translate(80,112) scale(1.15)">
     <path d="M-32,95 Q-32,44 0,44 Q32,44 32,95Z" fill="#F28C28"/>
     <rect x="-7" y="34" width="14" height="12" fill="#8D5524"/>

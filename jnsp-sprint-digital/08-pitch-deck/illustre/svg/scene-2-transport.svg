@@ -8,4 +8,4 @@
     <circle cx="226" cy="188" r="20" fill="#0F172A"/><circle cx="226" cy="188" r="8" fill="#CBD5E1"/>
     <circle cx="268" cy="44" r="30" fill="#fff" stroke="#17603C" stroke-width="5"/>
     <text x="268" y="52" text-anchor="middle" font-family="Inter" font-weight="800" font-size="22" fill="#17603C">F</text>
-    <text x="200" y="52" text-anchor="end" font-family="Inter" font-weight="800" font-size="22" fill="#0F172A">– 1 000</text></svg>
+</svg>
