@@ -2,7 +2,7 @@
 
 Produit en exécutant le prompt [`00c-PROMPT-PITCH-ILLUSTRE.md`](../../00c-PROMPT-PITCH-ILLUSTRE.md).
 
-- **Deck** : [`../SUIVO-pitch-illustre.pptx`](../SUIVO-pitch-illustre.pptx), 10 diapositives 16:9, modifiable, notes orales sur chaque diapositive.
+- **Deck** : [`../SUIVO-pitch-illustre.pptx`](../SUIVO-pitch-illustre.pptx), 15 diapositives 16:9, modifiable, notes orales sur chaque diapositive.
 - **PDF** : [`../SUIVO-pitch-illustre.pdf`](../SUIVO-pitch-illustre.pdf), polices intégrées.
 - **Illustrations sources** : dossier [`svg/`](./svg) (vectoriel, réutilisable dans d'autres supports).
 - **Régénération** : `npm install pptxgenjs@3.12.0 sharp@0.33.5 react@18.3.1 react-dom@18.3.1 react-icons@5.4.0 && node generer.js`
@@ -12,21 +12,29 @@ Produit en exécutant le prompt [`00c-PROMPT-PITCH-ILLUSTRE.md`](../../00c-PROMP
 ### Choix éditorial
 Aucune étude de marché n'ayant été menée, le deck **n'affiche aucun chiffre ni estimation non mesurés** (taille de marché, coût du problème, prix, chiffre d'affaires, objectif chiffré). Il démontre la **valeur ajoutée pour chaque acteur**, de façon qualitative et vérifiable, et propose de mesurer les gains réels pendant le pilote.
 
-### Diapositives produites
-| # | Diapositive | Illustration |
-|---|---|---|
-| 1 | Page de garde | Colis suivi (repère + trajet), capture d'accueil dans un cadre de téléphone |
-| 2 | Contexte — le problème | 4 vignettes : guichet, woro-woro, attente, « il manque une pièce » ; 3 constats en icônes |
-| 3 | Contexte — qui souffre | 3 portraits illustrés (personas fictifs) : Awa, Konan, Mme Bamba |
-| 4 | Solution | 2 captures réelles annotées (repères 1-2-3), 4 bénéfices en icônes |
-| 5 | Comment ça marche | Parcours en 4 étapes, couloirs Usager / Administration, encadré sans smartphone, avant/après |
-| 6 | Cas pratique — le parcours | Schéma en couloirs : Awa, guichet de la Fonction publique, liquidation des droits, Trésor public, SUIVO ; 16 événements numérotés du dépôt au retrait (pièce manquante, retard, relance compris) |
-| 7 | Cas pratique — ce que voit chacun | Téléphone avec les SMS reçus par Awa, écrans de l'agent et du chef de service, traçabilité pour le ministère |
-| 8 | Valeur ajoutée pour chaque acteur | 6 cartes : citoyen, usager sans smartphone, agent, chef de service, État, partenaires |
-| 9 | Le modèle économique | Flux de valeur et de paiement, 4 principes (sans prix) |
-| 10 | Clôture | La demande de pilote et l'engagement de mesurer les gains sur le terrain |
+### Diapositives produites — alignées sur les 7 points attendus par le jury (10 minutes)
+| # | Critère du jury | Diapositive | Temps |
+|---|---|---|---|
+| 1 | — | Page de garde | 20 s |
+| 2 | — | Sommaire : les 7 points | 15 s |
+| 3 | 1 · Problème à résoudre | « Revenez la semaine prochaine » : 4 vignettes, 3 constats | 45 s |
+| 4 | 1 · Problème à résoudre | Trois personnes, une même attente (personas fictifs) | 40 s |
+| 5 | 2 · Solution proposée | Une plateforme de suivi des demandes (captures annotées, 4 bénéfices) | 40 s |
+| 6 | 2 · Fonctionnement | Parcours en 4 étapes, couloirs usager / administration, sans smartphone | 40 s |
+| 7 | 2 · Cas pratique | Capital décès d'Awa, du dépôt au retrait : 16 événements, 5 acteurs | 1 min |
+| 8 | 2 · Cas pratique | Ce que reçoit Awa (SMS), ce que voient l'agent, le chef de service, le ministère | 40 s |
+| 9 | 3 · Impact | Pour le citoyen (citoyen, sans smartphone, familles) / pour le service public (agent, chef de service, État) | 50 s |
+| 10 | 4 · Caractère innovant | Le suivi de colis appliqué au service public : 6 innovations | 45 s |
+| 11 | 5 · Faisabilité | Technique et opérationnelle, architecture | 50 s |
+| 12 | 6 · Expérience utilisateur et inclusion | Simplicité (écran réel) et 5 situations d'inclusion | 45 s |
+| 13 | 7 · Déploiement | Pilote → extension → généralisation ; pourquoi c'est reproductible | 40 s |
+| 14 | 7 · Pérennisation | Modèle durable : flux de valeur, principes, ancrage institutionnel | 40 s |
+| 15 | — | Notre demande et notre engagement | 30 s |
+| | | **Total** | **10 min** |
 
-Motif récurrent : une ligne de 10 points d'étape en haut à droite, comme un suivi de colis, qui avance de diapositive en diapositive.
+Le minutage figure au début de chaque note du présentateur (« [≈ 45 s] »). Les éléments annoncés comme « prévus » (code USSD, messages vocaux en langues locales) ne sont pas encore développés dans le prototype : ils sont présentés honnêtement comme tels.
+
+Motif récurrent : une ligne de points d'étape (un par diapositive) en haut à droite, comme un suivi de colis, qui avance de diapositive en diapositive.
 
 ### Sources du contenu
 Problème et personas : 01-etudes.md · Fonctionnalités et parcours : MVP, 05-user-workflows.md, 06-processus.md · Modèle : 02-business-model-canvas.md (sans les prix).

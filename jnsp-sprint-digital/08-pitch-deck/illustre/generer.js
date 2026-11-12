@@ -136,7 +136,7 @@ async function telephone(fichier, sortieNom) {
   const ic = {};
   for (const [k, C] of Object.entries({ suivre: fa.FaMobileScreenButton, notif: fa.FaBell, piece: fa.FaFileArrowUp, relance: fa.FaBullhorn,
     depot: fa.FaInbox, routage: fa.FaRoute, suivi: fa.FaLocationDot, retrait: fa.FaBoxOpen, etat: fa.FaBuildingColumns,
-    qr: fa.FaQrcode, repete: fa.FaRepeat, argent: fa.FaMoneyBillWave, invisible: fa.FaEyeSlash, agent: fa.FaHeadset, chef: fa.FaChartLine, partenaire: fa.FaHandshake, principe: fa.FaCircleCheck, sms: fa.FaCommentSms, citoyen: fa.FaUser, entreprise: fa.FaBriefcase, premium: fa.FaStar })) ic[k] = await icone(C);
+    qr: fa.FaQrcode, repete: fa.FaRepeat, argent: fa.FaMoneyBillWave, invisible: fa.FaEyeSlash, agent: fa.FaHeadset, chef: fa.FaChartLine, partenaire: fa.FaHandshake, principe: fa.FaCircleCheck, famille: fa.FaPeopleRoof, lien: fa.FaDiagramProject, chrono: fa.FaStopwatch, mesure: fa.FaChartColumn, cadenas: fa.FaLock, canaux: fa.FaTowerBroadcast, code: fa.FaCode, oeil: fa.FaEye, clic: fa.FaHandPointer, wifi: fa.FaWifi, acces: fa.FaUniversalAccess, voix: fa.FaVolumeHigh, proche: fa.FaPeopleGroup, copie: fa.FaClone, globe: fa.FaGlobe, reglage: fa.FaSliders, liste: fa.FaListCheck, texte: fa.FaFont, engrenage: fa.FaGears, sms: fa.FaCommentSms, citoyen: fa.FaUser, entreprise: fa.FaBriefcase, premium: fa.FaStar })) ic[k] = await icone(C);
 
   const icPrincipe = await icone(fa.FaCircleCheck, V);
   const THEME = {
@@ -166,7 +166,7 @@ async function telephone(fichier, sortieNom) {
     slideNumber: { x: 12.2, y: 7.02, w: 0.55, h: 0.3, fontSize: 11, color: C.accent5, align: 'right' },
   });
 
-  const TOTAL = 10;
+  const TOTAL = 15;
   // Motif récurrent : le « suivi de colis » du deck (points d'étape en haut à droite)
   function motif(s, n, sombre = false) {
     const x0 = 10.55, x1 = 12.65, y = 0.62;
@@ -207,12 +207,31 @@ async function telephone(fichier, sortieNom) {
     txt(s, 'Problématique', 'Problématique : suivi des demandes administratives\nPlateforme web et mobile · SMS · WhatsApp · USSD', { x: 0.8, y: 4.75, w: 6.4, h: 0.8, fontSize: 16, color: C.accent6, paraSpaceAfter: 4 });
     s.addImage({ objectName: 'Illustration colis suivi', path: img['colis-suivi'], x: 6.75, y: 3.65, w: 2.9, h: 2.51, altText: 'Colis avec un repère de position et un trajet en pointillés : le dossier suivi comme un colis' });
     s.addImage({ objectName: 'Capture écran d\'accueil', path: telAccueil.chemin, x: 9.75, y: 0.95, w: 5.7 * telAccueil.ratio, h: 5.7, altText: "Écran d'accueil de l'application SUIVO", shadow: ombre() });
-    s.addNotes("Bonjour. Nous sommes SUIVO, et notre promesse tient en une phrase : suivre son dossier administratif comme on suit un colis.");
+    s.addNotes("[≈ 20 s] Bonjour. Nous sommes SUIVO, et notre promesse tient en une phrase : suivre son dossier administratif comme on suit un colis.");
+  }
+
+  // ============================================================ 2. Sommaire (les 7 points attendus par le jury)
+  {
+    const s = contenu(2, 'Sommaire', 'Sept points en dix minutes');
+    const pts = [
+      ['Le problème à résoudre', '3–4'], ['La solution proposée et son fonctionnement', '5–8'], ["L'impact sur le citoyen et le service public", '9'],
+      ['Le caractère innovant', '10'], ['La faisabilité technique et opérationnelle', '11'], ["L'expérience utilisateur et l'inclusion", '12'],
+      ['Le potentiel de déploiement et de pérennisation', '13–14'],
+    ];
+    pts.forEach(([t, d], i) => {
+      const y = 1.7 + i * 0.7;
+      s.addShape(pres.shapes.OVAL, { objectName: `Point ${i + 1}`, x: M, y, w: 0.5, h: 0.5, fill: { color: i % 2 ? C.accent1 : C.accent2 }, line: { color: C.background1 } });
+      txt(s, `Numéro point ${i + 1}`, String(i + 1), { x: M, y, w: 0.5, h: 0.5, fontSize: 16, bold: true, color: C.background1, align: 'center', valign: 'middle' });
+      txt(s, `Texte point ${i + 1}`, t, { x: M + 0.75, y, w: 6.9, h: 0.5, fontSize: 20, bold: true, valign: 'middle' });
+      txt(s, `Diapositives point ${i + 1}`, `diapositives ${d}`, { x: M + 7.7, y, w: 1.4, h: 0.5, fontSize: 12, color: C.accent5, valign: 'middle' });
+    });
+    s.addImage({ objectName: 'Illustration colis suivi (sommaire)', path: img['colis-suivi'], x: 9.85, y: 2.3, w: 3.0, h: 2.6, altText: 'Colis suivi : le fil conducteur de la présentation' });
+    s.addNotes("[≈ 15 s] Nous allons répondre, dans l'ordre, aux sept points attendus : le problème, la solution et son fonctionnement, son impact, son caractère innovant, sa faisabilité, l'expérience utilisateur et l'inclusion, et enfin son déploiement et sa pérennité.");
   }
 
   // ============================================================ 2. Contexte — le problème
   {
-    const s = contenu(2, 'Contexte', '« Revenez la semaine prochaine »');
+    const s = contenu(3, '1 · Le problème à résoudre', '« Revenez la semaine prochaine »');
     const scenes = [['scene-1-guichet', 'Dépôt au guichet'], ['scene-2-transport', 'Retour en woro-woro'], ['scene-3-attente', '« Pas encore prêt »'], ['scene-4-retour', '« Il manque une pièce »']];
     const w = 2.85, g = (CW - 4 * w) / 3;
     scenes.forEach(([n, l], i) => {
@@ -230,12 +249,12 @@ async function telephone(fichier, sortieNom) {
       txt(s, `Texte constat ${i + 1}`, [{ text: t, options: { bold: true, breakLine: true } }, { text: d, options: { fontSize: 13, color: C.accent5 } }], { x: x + 0.95, y: 4.75, w: 3.0, h: 0.9, fontSize: 16, valign: 'middle' });
     });
     txt(s, 'Constat', "Personne, pas même l'administration, ne sait où est le dossier, qui le traite ni quand il sera prêt.", { x: M, y: 6.05, w: CW, h: 0.5, fontSize: 18, bold: true, color: C.accent1 });
-    s.addNotes("Obtenir un document demande souvent plusieurs déplacements : on dépose, on revient en woro-woro, on s'entend dire que ce n'est pas prêt, puis qu'il manque une pièce. Chaque aller-retour coûte du temps et de l'argent. Et l'administration elle-même ne sait pas toujours où est le dossier.");
+    s.addNotes("[≈ 45 s] Obtenir un document demande souvent plusieurs déplacements : on dépose, on revient en woro-woro, on s'entend dire que ce n'est pas prêt, puis qu'il manque une pièce. Chaque aller-retour coûte du temps et de l'argent. Et l'administration elle-même ne sait pas toujours où est le dossier.");
   }
 
   // ============================================================ 3. Contexte — personas
   {
-    const s = contenu(3, 'Contexte', 'Trois personnes, une même attente');
+    const s = contenu(4, '1 · Le problème à résoudre', 'Trois personnes, une même attente');
     const p = [
       ['avatar-awa', 'Awa, 29 ans', 'Aînée, représente ses jeunes frères orphelins · smartphone', '« Obtenir le capital décès de notre père pour mes petits frères, sans faire le tour des bureaux. »', 'Aucune date, des démarcheurs, des allers-retours.'],
       ['avatar-konan', 'Konan, 52 ans', 'Planteur à Daloa · téléphone basique, lit peu le français', '« Savoir où en est le titre foncier de ma plantation sans aller trois fois en ville. »', 'Le coût du transport ; il dépend de ses enfants pour lire.'],
@@ -251,12 +270,12 @@ async function telephone(fichier, sortieNom) {
       txt(s, `Citation ${nom}`, citation, { x: x + 0.3, y: 3.6, w: w - 0.6, h: 1.65, fontSize: 17, italic: true, color: C.accent1 });
       txt(s, `Douleur ${nom}`, [{ text: 'Sa douleur : ', options: { bold: true, color: C.accent2 } }, { text: douleur }], { x: x + 0.3, y: 5.15, w: w - 0.6, h: 1.1, fontSize: 14 });
     });
-    s.addNotes("Le problème touche trois personnes. Awa a perdu son père, fonctionnaire : elle fait la demande de capital décès pour ses jeunes frères et perd des journées dans les bureaux. Konan, planteur à Daloa, attend le titre foncier de sa plantation ; il n'a qu'un téléphone basique et paie cher chaque trajet. Et Mme Bamba, au guichet, passe ses journées à répondre « pas encore » au lieu de traiter les dossiers.");
+    s.addNotes("[≈ 40 s] Le problème touche trois personnes. Awa a perdu son père, fonctionnaire : elle fait la demande de capital décès pour ses jeunes frères et perd des journées dans les bureaux. Konan, planteur à Daloa, attend le titre foncier de sa plantation ; il n'a qu'un téléphone basique et paie cher chaque trajet. Et Mme Bamba, au guichet, passe ses journées à répondre « pas encore » au lieu de traiter les dossiers.");
   }
 
   // ============================================================ 4. Solution
   {
-    const s = contenu(4, 'La solution', 'Un numéro de suivi, une timeline, des notifications');
+    const s = contenu(5, '2 · La solution proposée', 'Une plateforme de suivi des demandes');
     const h = 5.05, w1 = h * telSuivi.ratio;
     s.addImage({ objectName: 'Capture suivi public', path: telSuivi.chemin, x: M + 0.1, y: 1.65, w: w1, h, altText: 'Suivi public d\'un dossier de capital décès : étape 2 sur 3, liquidation des droits, en retard', shadow: ombre() });
     s.addImage({ objectName: 'Capture mes dossiers', path: telDossiers.chemin, x: M + w1 + 0.45, y: 1.65, w: w1, h, altText: 'Liste des dossiers de l\'usager avec leur progression', shadow: ombre() });
@@ -279,12 +298,12 @@ async function telephone(fichier, sortieNom) {
     carte(s, 'Bandeau État', xd, 6.35, 12.73 - xd, 0.55, C.accent6);
     s.addImage({ objectName: 'Icône État', data: await icone(fa.FaBuildingColumns, H.accent4), x: xd + 0.18, y: 6.47, w: 0.3, h: 0.3, altText: 'Administration' });
     txt(s, 'Texte État', [{ text: "Pour l'État : ", options: { bold: true } }, { text: 'file de travail en 1 clic + tableau de bord des délais' }], { x: xd + 0.6, y: 6.35, w: 12.73 - xd - 0.7, h: 0.55, fontSize: 14, color: C.accent4, valign: 'middle' });
-    s.addNotes("SUIVO donne à chaque demande un numéro de suivi, comme un colis. L'usager voit l'étape en cours, le service qui détient son dossier et le délai restant. Il est prévenu à chaque étape, peut répondre à une pièce manquante et relancer si le délai est dépassé. Côté État, l'agent valide en un clic et le chef de service voit enfin les délais réels.");
+    s.addNotes("[≈ 40 s] SUIVO donne à chaque demande un numéro de suivi, comme un colis. L'usager voit l'étape en cours, le service qui détient son dossier et le délai restant. Il est prévenu à chaque étape, peut répondre à une pièce manquante et relancer si le délai est dépassé. Côté État, l'agent valide en un clic et le chef de service voit enfin les délais réels.");
   }
 
   // ============================================================ 5. Comment ça marche
   {
-    const s = contenu(5, 'Comment ça marche', 'Un seul déplacement, à la fin de la démarche');
+    const s = contenu(6, '2 · Son fonctionnement', 'Un seul déplacement, à la fin de la démarche');
     const etapes = [[ic.depot, 'Dépôt', 'En ligne ou au guichet → n° + QR'], [ic.routage, 'Routage', 'De service en service, chaque étape a son délai'], [ic.suivi, 'Suivi', 'Notification à chaque étape'], [ic.retrait, 'Clôture', 'Dossier finalisé : retrait ou paiement']];
     const w = 2.55, g = (CW - 1.3 - 4 * w) / 3, x0 = M + 1.3;
     const usager = ['Dépose sa demande', 'Reçoit un SMS par étape', 'Répond ou relance à distance', 'Se déplace une seule fois'];
@@ -313,12 +332,12 @@ async function telephone(fichier, sortieNom) {
     txt(s, 'Avant', [{ text: 'Avant', options: { fontSize: 13, color: C.accent5, breakLine: true } }, { text: 'Plusieurs allers-retours' }], { x: 8.2, y: 5.45, w: 2.0, h: 1.3, fontSize: 18, bold: true, color: C.accent5, valign: 'middle' });
     s.addShape(pres.shapes.RIGHT_ARROW, { objectName: 'Flèche avant après', x: 10.2, y: 5.92, w: 0.6, h: 0.36, fill: { color: C.accent2 }, line: { color: C.accent2 } });
     txt(s, 'Après', [{ text: 'Avec SUIVO', options: { fontSize: 13, color: C.accent2, breakLine: true } }, { text: 'Un seul déplacement' }], { x: 10.95, y: 5.45, w: 1.8, h: 1.3, fontSize: 18, bold: true, color: C.accent1, valign: 'middle' });
-    s.addNotes("Concrètement : on dépose en ligne ou au guichet et on reçoit un numéro. Le dossier passe de service en service, chacun avec son délai. L'usager est notifié à chaque étape, et l'agent n'a qu'un clic à faire. À la fin, un seul déplacement : pour retirer le document, ou aucun si c'est un paiement. Sans smartphone, le reçu QR, les SMS et l'USSD prennent le relais.");
+    s.addNotes("[≈ 40 s] Concrètement : on dépose en ligne ou au guichet et on reçoit un numéro. Le dossier passe de service en service, chacun avec son délai. L'usager est notifié à chaque étape, et l'agent n'a qu'un clic à faire. À la fin, un seul déplacement : pour retirer le document, ou aucun si c'est un paiement. Sans smartphone, le reçu QR, les SMS et l'USSD prennent le relais.");
   }
 
   // ============================================================ 6. Cas pratique — le parcours acteur par acteur
   {
-    const s = contenu(6, 'Cas pratique', 'Le capital décès d\'Awa, du dépôt au retrait');
+    const s = contenu(7, '2 · Cas pratique', 'Le capital décès d\'Awa, du dépôt au retrait');
     const couloirs = [
       [ic.citoyen, C.accent2, 'Awa', 'représentante des orphelins'],
       [ic.depot, C.accent1, 'Guichet', 'Fonction publique'],
@@ -356,12 +375,12 @@ async function telephone(fichier, sortieNom) {
       txt(s, `Texte événement ${k + 1}`, t, { x: x + 0.27, y, w: w - 0.32, h, fontSize: 10.5, valign: 'middle' });
     });
     txt(s, 'Bilan cas pratique', [{ text: 'Résultat : ', options: { bold: true, color: C.accent1 } }, { text: 'Awa ne se déplace que pour déposer et pour retirer ; chaque acteur sait à tout moment qui détient le dossier.' }], { x: M, y: 6.42, w: 13.333 - 2 * M, h: 0.4, fontSize: 14 });
-    s.addNotes("Prenons un cas réel : Awa a perdu son père, fonctionnaire, et demande le capital décès pour ses jeunes frères. Elle dépose son dossier au guichet de la Fonction publique, qui l'enregistre et lui remet un reçu avec un QR code ; elle reçoit un SMS. L'agent constate qu'il manque un extrait de naissance : Awa est prévenue et l'envoie à distance. Le dossier passe à la liquidation des droits. Le délai est dépassé : SUIVO alerte le service et Awa relance en un clic ; l'étape est validée. Le Trésor met en paiement, Awa reçoit le SMS « dossier finalisé » et se déplace une seule fois pour le retrait.");
+    s.addNotes("[≈ 1 min] Prenons un cas réel : Awa a perdu son père, fonctionnaire, et demande le capital décès pour ses jeunes frères. Elle dépose son dossier au guichet de la Fonction publique, qui l'enregistre et lui remet un reçu avec un QR code ; elle reçoit un SMS. L'agent constate qu'il manque un extrait de naissance : Awa est prévenue et l'envoie à distance. Le dossier passe à la liquidation des droits. Le délai est dépassé : SUIVO alerte le service et Awa relance en un clic ; l'étape est validée. Le Trésor met en paiement, Awa reçoit le SMS « dossier finalisé » et se déplace une seule fois pour le retrait.");
   }
 
   // ============================================================ 7. Cas pratique — ce que reçoit Awa, ce que voit chaque acteur
   {
-    const s = contenu(7, 'Cas pratique', 'Ce que reçoit Awa, ce que voit chaque acteur');
+    const s = contenu(8, '2 · Cas pratique', 'Ce que reçoit Awa, ce que voit chaque acteur');
     // Téléphone avec les SMS reçus
     const px = M + 0.2, py = 1.6, pw = 3.55, ph = 5.2;
     s.addShape(pres.shapes.ROUNDED_RECTANGLE, { objectName: 'Téléphone', x: px, y: py, w: pw, h: ph, rectRadius: 0.35, fill: { color: H.dk1 }, line: { color: H.dk1 }, shadow: ombre() });
@@ -400,34 +419,156 @@ async function telephone(fichier, sortieNom) {
     carte(s, 'Encadré traçabilité', xr, 5.45, wr, 1.3, C.background2);
     rond(s, 'Icône traçabilité', xr + 0.25, 5.78, 0.62, ic.etat, C.accent4);
     txt(s, 'Texte traçabilité', [{ text: 'Le ministère ', options: { bold: true, color: C.accent4 } }, { text: 'dispose de l\'historique complet du dossier : qui a fait quoi, quand, et si le délai a été respecté. Chaque action est enregistrée dans un journal qui ne peut pas être modifié.' }], { x: xr + 1.05, y: 5.45, w: wr - 1.25, h: 1.3, fontSize: 13, valign: 'middle' });
-    s.addNotes("Voici ce que reçoit Awa : un SMS à chaque étape, sans jamais avoir à demander. De l'autre côté, l'agent de liquidation voit le dossier relancé remonter en tête de sa file ; il le valide en un clic. Le chef de service voit les retards de chaque service. Et le ministère dispose de l'historique complet et infalsifiable du dossier.");
+    s.addNotes("[≈ 40 s] Voici ce que reçoit Awa : un SMS à chaque étape, sans jamais avoir à demander. De l'autre côté, l'agent de liquidation voit le dossier relancé remonter en tête de sa file ; il le valide en un clic. Le chef de service voit les retards de chaque service. Et le ministère dispose de l'historique complet et infalsifiable du dossier.");
   }
 
-  // ============================================================ 6. Valeur ajoutée par acteur
+  // ============================================================ 9. Impact sur le citoyen et le service public
   {
-    const s = contenu(8, 'Valeur ajoutée', 'Ce que SUIVO change pour chaque acteur');
-    const acteurs = [
-      [ic.citoyen, C.accent1, 'Le citoyen', ['Sait où est son dossier, qui le traite et quand il sera prêt', 'Agit à distance : pièce manquante, relance', 'Ne se déplace que pour retirer son document']],
-      [ic.sms, C.accent2, 'L\'usager sans smartphone', ['Dépôt assisté au guichet, reçu avec QR code', 'Notifications par SMS, statut par code USSD', 'Un proche peut suivre le dossier avec le numéro']],
-      [ic.agent, C.accent1, 'L\'agent de guichet', ['Moins de questions « où en est mon dossier ? »', 'Mise à jour en 1 clic ou par scan du QR', 'File de travail triée par urgence']],
-      [ic.chef, C.accent1, 'Le chef de service', ['Voit les retards et les blocages en temps réel', 'Est alerté avant que l\'usager ne se plaigne', 'Peut valoriser les progrès de son équipe']],
-      [ic.etat, C.accent4, 'Le ministère, l\'État', ['Mesure les délais réels de ses services', 'Gagne en transparence et en redevabilité', 'Réduit la place des intermédiaires informels']],
-      [ic.partenaire, C.accent2, 'Les partenaires', ['Plateformes existantes : se brancher par API plutôt que tout refaire', 'Banques, employeurs : vérifier un statut avec l\'accord de l\'usager']],
+    const s = contenu(9, '3 · Impact', "L'impact sur le citoyen et le service public");
+    const lignes = [
+      ['Pour le citoyen', C.accent2, [
+        [ic.citoyen, 'Le citoyen', ['Sait où est son dossier, qui le traite et quand il sera prêt', 'Agit à distance : pièce manquante, relance', 'Ne se déplace plus « pour rien »']],
+        [ic.sms, "L'usager sans smartphone", ['Dépôt assisté au guichet, reçu avec QR', 'Informé par SMS', 'Garde le même niveau d\'information']],
+        [ic.famille, 'Les familles et les aidants', ['Un tuteur suit le dossier des orphelins', 'Un proche peut aider avec le seul numéro', 'Moins de dépendance aux intermédiaires']],
+      ]],
+      ['Pour le service public', C.accent1, [
+        [ic.agent, "L'agent", ['Moins de questions « où en est mon dossier ? »', 'Mise à jour en 1 clic ou par scan du QR', 'Des guichets moins encombrés']],
+        [ic.chef, 'Le chef de service', ['Voit les retards et les blocages', 'Est alerté avant la plainte', 'Valorise les progrès de son équipe']],
+        [ic.etat, "L'État", ['Mesure les délais réels de ses services', 'Gagne en transparence et en redevabilité', 'Restaure la confiance dans le service public']],
+      ]],
     ];
-    const w = (CW - 2 * 0.3) / 3, h = 2.38;
-    acteurs.forEach(([icn, col, nom, points], i) => {
-      const x = M + (i % 3) * (w + 0.3), y = 1.65 + Math.floor(i / 3) * (h + 0.25);
-      carte(s, `Carte ${nom}`, x, y, w, h);
-      rond(s, `Icône ${nom}`, x + 0.25, y + 0.22, 0.6, icn, col);
-      txt(s, `Acteur ${nom}`, nom, { x: x + 1.0, y: y + 0.22, w: w - 1.15, h: 0.6, fontSize: 17, bold: true, valign: 'middle' });
-      txt(s, `Gains ${nom}`, points.map((t, k) => ({ text: t, options: { bullet: { indent: 14 }, breakLine: k < points.length - 1 } })), { x: x + 0.25, y: y + 0.95, w: w - 0.45, h: h - 1.05, fontSize: 13, paraSpaceAfter: 5 });
+    const lw = 1.35, gw = 0.22, w = (CW - lw - 0.2 - 2 * gw) / 3, h = 2.3;
+    lignes.forEach(([libelle, col, cartes], r) => {
+      const y = 1.65 + r * (h + 0.25);
+      s.addShape(pres.shapes.ROUNDED_RECTANGLE, { objectName: `Bandeau ${libelle}`, x: M, y, w: lw, h, rectRadius: 0.1, fill: { color: col }, line: { color: col } });
+      txt(s, `Libellé ${libelle}`, libelle, { x: M + 0.1, y, w: lw - 0.2, h, fontSize: 16, bold: true, color: C.background1, align: 'center', valign: 'middle' });
+      cartes.forEach(([icn, nom, points], k) => {
+        const x = M + lw + 0.2 + k * (w + gw);
+        carte(s, `Carte ${nom}`, x, y, w, h);
+        rond(s, `Icône ${nom}`, x + 0.22, y + 0.2, 0.55, icn, col);
+        txt(s, `Acteur ${nom}`, nom, { x: x + 0.9, y: y + 0.2, w: w - 1.0, h: 0.55, fontSize: 16, bold: true, valign: 'middle' });
+        txt(s, `Gains ${nom}`, points.map((t, j) => ({ text: t, options: { bullet: { indent: 14 }, breakLine: j < points.length - 1 } })), { x: x + 0.22, y: y + 0.88, w: w - 0.4, h: h - 0.98, fontSize: 13, paraSpaceAfter: 5 });
+      });
     });
-    s.addNotes("SUIVO apporte quelque chose à chaque acteur. Le citoyen sait où en est son dossier et ne se déplace plus que pour le retirer, même sans smartphone. L'agent reçoit moins de questions et met à jour en un clic. Le chef de service voit les retards avant les plaintes. L'État mesure enfin ses délais réels et gagne en transparence. Et les plateformes existantes peuvent s'y brancher au lieu de tout refaire.");
+    s.addNotes("[≈ 50 s] L'impact est double. Pour le citoyen : il sait où en est son dossier, il agit à distance, et il ne se déplace plus pour rien, même sans smartphone ; un tuteur ou un proche peut suivre le dossier à sa place. Pour le service public : l'agent reçoit moins de questions et met à jour en un clic, le chef de service voit les retards avant les plaintes, et l'État mesure enfin les délais réels de ses services, ce qui renforce la transparence et la confiance.");
+  }
+
+  // ============================================================ 10. Caractère innovant
+  {
+    const s = contenu(10, '4 · Caractère innovant', 'Le suivi de colis, appliqué au service public');
+    s.addImage({ objectName: 'Illustration colis suivi (innovation)', path: img['colis-suivi'], x: M + 0.2, y: 1.75, w: 3.4, h: 2.95, altText: 'Colis suivi : le modèle du suivi de colis appliqué au dossier administratif' });
+    txt(s, 'Idée clé innovation', 'Ce que chacun connaît pour un colis, appliqué pour la première fois au dossier administratif.', { x: M, y: 4.95, w: 3.8, h: 1.3, fontSize: 17, bold: true, color: C.accent1 });
+    const items = [
+      [ic.qr, 'Un numéro de suivi pour toute démarche', 'même déposée sur papier, grâce au reçu QR'],
+      [ic.lien, 'Une couche qui relie les administrations', 'elle se branche sur leurs outils au lieu de les remplacer'],
+      [ic.chrono, 'Un délai visible pour chaque étape', "suspendu quand c'est à l'usager d'agir"],
+      [ic.mesure, 'La mesure des délais réels', "l'État pilote avec des données, plus avec des impressions"],
+      [ic.cadenas, 'Un historique infalsifiable', 'chaque action est tracée : moins de place aux intermédiaires'],
+      [ic.canaux, 'Tous les canaux, un seul suivi', 'application, SMS, WhatsApp, USSD et guichet'],
+    ];
+    items.forEach(([icn, t, d], k) => {
+      const y = 1.65 + k * 0.8;
+      rond(s, `Innovation ${k + 1}`, 4.75, y + 0.05, 0.55, icn, k % 2 ? C.accent2 : C.accent1);
+      txt(s, `Texte innovation ${k + 1}`, [{ text: t, options: { bold: true, breakLine: true } }, { text: d, options: { fontSize: 13, color: C.accent5 } }], { x: 5.5, y, w: 7.23, h: 0.68, fontSize: 16, valign: 'middle' });
+    });
+    s.addNotes("[≈ 45 s] Ce qui est innovant, c'est d'appliquer au dossier administratif ce que tout le monde connaît pour un colis. Concrètement : un numéro de suivi pour toute démarche, même déposée sur papier ; une couche qui relie les administrations sans remplacer leurs outils ; un délai visible pour chaque étape, suspendu quand c'est à l'usager d'agir ; la mesure des délais réels ; un historique infalsifiable ; et tous les canaux, de l'application au SMS, pour un seul suivi.");
+  }
+
+  // ============================================================ 11. Faisabilité technique et opérationnelle
+  {
+    const s = contenu(11, '5 · Faisabilité', 'Faisable techniquement, applicable dès demain');
+    const colonnes = [
+      [ic.code, 'Faisabilité technique', [
+        'Un prototype qui fonctionne déjà : dépôt, suivi, file des agents, tableau de bord',
+        'Des technologies standard et ouvertes : React, Node.js, PostgreSQL',
+        'Testé de bout en bout ; sécurisé : code SMS, droits par service, journal d\'audit',
+        'Une application légère, utilisable en 3G et hors connexion',
+      ]],
+      [ic.engrenage, 'Faisabilité opérationnelle', [
+        "Démarre sans attendre l'interconnexion : les agents utilisent SUIVO directement",
+        'Intégration progressive aux systèmes existants : saisie, connecteur, puis API',
+        'Prise en main immédiate : une action = un clic ; formation courte sur site',
+        'Respect de la protection des données (ARTCI) ; hébergement local possible',
+      ]],
+    ];
+    const w = (CW - 0.3) / 2;
+    colonnes.forEach(([icn, titre, points], k) => {
+      const x = M + k * (w + 0.3);
+      carte(s, `Carte ${titre}`, x, 1.65, w, 3.55);
+      rond(s, `Icône ${titre}`, x + 0.25, 1.85, 0.6, icn, k ? C.accent2 : C.accent1);
+      txt(s, `Titre ${titre}`, titre, { x: x + 1.0, y: 1.85, w: w - 1.2, h: 0.6, fontSize: 19, bold: true, valign: 'middle' });
+      points.forEach((t, j) => {
+        const y = 2.65 + j * 0.62;
+        s.addImage({ objectName: `Coche ${titre} ${j + 1}`, data: icPrincipe, x: x + 0.3, y: y + 0.07, w: 0.26, h: 0.26, altText: 'Point validé' });
+        txt(s, `Point ${titre} ${j + 1}`, t, { x: x + 0.7, y, w: w - 0.95, h: 0.58, fontSize: 13.5, valign: 'top' });
+      });
+    });
+    // Architecture
+    txt(s, 'Titre architecture', 'Architecture', { x: M, y: 5.45, w: 1.6, h: 0.9, fontSize: 15, bold: true, color: C.accent4, valign: 'middle' });
+    const blocs = [['Application web et mobile', 'React + Tailwind (PWA)'], ['Serveur', 'Node.js + Express'], ['Base de données', 'PostgreSQL'], ['Notifications', 'SMS · WhatsApp · USSD']];
+    const bw = 2.35, bx0 = M + 1.7, bg = (CW - 1.7 - 4 * bw) / 3;
+    blocs.forEach(([t, d], k) => {
+      const x = bx0 + k * (bw + bg);
+      s.addShape(pres.shapes.ROUNDED_RECTANGLE, { objectName: `Bloc ${t}`, x, y: 5.45, w: bw, h: 0.9, rectRadius: 0.1, fill: { color: k === 3 ? 'FFF4EA' : C.background1 }, line: { color: k === 3 ? C.accent2 : C.accent1, width: 1.5 } });
+      txt(s, `Texte bloc ${t}`, [{ text: t, options: { bold: true, breakLine: true } }, { text: d, options: { fontSize: 11, color: C.accent5 } }], { x: x + 0.1, y: 5.45, w: bw - 0.2, h: 0.9, fontSize: 13, align: 'center', valign: 'middle' });
+      if (k < 3) s.addShape(pres.shapes.RIGHT_ARROW, { objectName: `Flèche architecture ${k + 1}`, x: x + bw + (bg - 0.3) / 2, y: 5.78, w: 0.3, h: 0.24, fill: { color: C.accent1 }, line: { color: C.accent1 } });
+    });
+    s.addNotes("[≈ 50 s] Sur le plan technique, ce n'est pas une maquette : le prototype fonctionne déjà, avec des technologies standard, ouvertes et maîtrisées localement ; il est testé de bout en bout, sécurisé, et assez léger pour la 3G. Sur le plan opérationnel, il démarre sans attendre que les systèmes soient interconnectés : les agents l'utilisent directement, puis on se branche progressivement aux outils existants. Une action, c'est un clic ; la formation est courte ; et la protection des données est prise en compte dès le départ.");
+  }
+
+  // ============================================================ 12. Expérience utilisateur et inclusion
+  {
+    const s = contenu(12, '6 · Expérience utilisateur et inclusion', 'Simple pour chacun, accessible à tous');
+    const hT = 5.0, wT = hT * telSuivi.ratio;
+    s.addImage({ objectName: 'Capture suivi (expérience)', path: telSuivi.chemin, x: M, y: 1.65, w: wT, h: hT, altText: "Écran de suivi d'un dossier : la réponse en un coup d'œil", shadow: ombre() });
+    const xu = M + wT + 0.35, wu = 3.55;
+    txt(s, 'Titre expérience', 'Une expérience simple', { x: xu, y: 1.65, w: wu, h: 0.45, fontSize: 19, bold: true, color: C.accent1 });
+    [[ic.oeil, "La réponse en un coup d'œil", 'où est le dossier, qui le traite, quand il sera prêt'], [ic.texte, 'Un langage simple', 'des messages courts, sans jargon administratif'], [ic.clic, "Pour l'agent : une action, un clic", 'valider, demander une pièce, rejeter avec un motif']].forEach(([icn, t, d], k) => {
+      const y = 2.3 + k * 1.3;
+      rond(s, `Expérience ${k + 1}`, xu, y, 0.55, icn);
+      txt(s, `Texte expérience ${k + 1}`, [{ text: t, options: { bold: true, breakLine: true } }, { text: d, options: { fontSize: 13, color: C.accent5 } }], { x: xu + 0.7, y: y - 0.05, w: wu - 0.7, h: 1.1, fontSize: 15 });
+    });
+    const xi = xu + wu + 0.3, wi = 13.333 - M - xi;
+    carte(s, 'Carte inclusion', xi, 1.65, wi, 5.05);
+    txt(s, 'Titre inclusion', 'Une solution inclusive', { x: xi + 0.25, y: 1.75, w: wi - 0.4, h: 0.45, fontSize: 19, bold: true, color: C.accent2 });
+    [[ic.sms, 'Sans smartphone', 'reçu QR au guichet, SMS ; code USSD prévu pour le pilote'], [ic.wifi, 'Avec une connexion faible', 'application légère, consultable hors connexion'], [ic.voix, 'Si l\'on lit peu le français', 'pictogrammes ; messages vocaux en langues locales prévus'], [ic.acces, 'En situation de handicap', 'contrastes élevés, grands boutons, lecteur d\'écran'], [ic.proche, 'Avec l\'aide d\'un proche', 'le dossier se suit avec le seul numéro, sans compte']].forEach(([icn, t, d], k) => {
+      const y = 2.3 + k * 0.86;
+      rond(s, `Inclusion ${k + 1}`, xi + 0.25, y, 0.52, icn, C.accent2);
+      txt(s, `Texte inclusion ${k + 1}`, [{ text: t, options: { bold: true, breakLine: true } }, { text: d, options: { fontSize: 12.5, color: C.accent5 } }], { x: xi + 0.92, y: y - 0.06, w: wi - 1.1, h: 0.8, fontSize: 15 });
+    });
+    s.addNotes("[≈ 45 s] L'expérience est pensée pour être simple : la réponse en un coup d'œil, un langage sans jargon, et pour l'agent, une action égale un clic. Elle est surtout inclusive : sans smartphone, on est servi au guichet et informé par SMS, avec un code USSD prévu pour le pilote ; avec une connexion faible, l'application reste légère ; pour ceux qui lisent peu le français, des pictogrammes et des messages vocaux en langues locales sont prévus ; et un proche peut suivre le dossier avec le seul numéro.");
+  }
+
+  // ============================================================ 13. Potentiel de déploiement
+  {
+    const s = contenu(13, '7 · Potentiel de déploiement', 'Commencer petit, déployer partout');
+    const phases = [
+      ['Pilote', 'Quelques démarches fréquentes (capital décès, foncier, état civil) avec des administrations volontaires ; mesure des gains sur le terrain.'],
+      ['Extension', "Autres communes et ministères ; branchement des plateformes de dépôt existantes ; agents relais à l'intérieur du pays."],
+      ['Généralisation', 'Toutes les démarches à plusieurs étapes ; ouverture aux pays de la sous-région.'],
+    ];
+    const w = (CW - 2 * 0.45) / 3;
+    phases.forEach(([t, d], k) => {
+      const x = M + k * (w + 0.45);
+      carte(s, `Phase ${t}`, x, 1.65, w, 2.25);
+      s.addShape(pres.shapes.OVAL, { objectName: `Numéro phase ${k + 1}`, x: x + 0.25, y: 1.85, w: 0.5, h: 0.5, fill: { color: k ? C.accent1 : C.accent2 }, line: { color: k ? C.accent1 : C.accent2 } });
+      txt(s, `Numéro phase texte ${k + 1}`, String(k + 1), { x: x + 0.25, y: 1.85, w: 0.5, h: 0.5, fontSize: 15, bold: true, color: C.background1, align: 'center', valign: 'middle' });
+      txt(s, `Titre phase ${t}`, t, { x: x + 0.9, y: 1.85, w: w - 1.0, h: 0.5, fontSize: 19, bold: true, valign: 'middle' });
+      txt(s, `Texte phase ${t}`, d, { x: x + 0.25, y: 2.5, w: w - 0.45, h: 1.3, fontSize: 13.5 });
+      if (k < 2) s.addShape(pres.shapes.CHEVRON, { objectName: `Flèche phase ${k + 1}`, x: x + w + 0.12, y: 2.6, w: 0.22, h: 0.38, fill: { color: C.accent2 }, line: { color: C.accent2 } });
+    });
+    txt(s, 'Titre reproductible', 'Pourquoi c\'est reproductible', { x: M, y: 4.2, w: CW, h: 0.45, fontSize: 18, bold: true, color: C.accent1 });
+    [[ic.copie, 'Une démarche modélisée une fois sert partout', 'dans toutes les communes et tous les services qui la traitent'], [ic.globe, 'Pas de matériel spécifique', 'un navigateur ou un simple téléphone suffit'], [ic.reglage, 'Paramétrable sans développement', 'étapes, services et délais propres à chaque administration']].forEach(([icn, t, d], k) => {
+      const x = M + k * (w + 0.45);
+      rond(s, `Reproductible ${k + 1}`, x, 4.85, 0.6, icn);
+      txt(s, `Texte reproductible ${k + 1}`, [{ text: t, options: { bold: true, breakLine: true } }, { text: d, options: { fontSize: 13, color: C.accent5 } }], { x: x + 0.8, y: 4.75, w: w - 0.8, h: 1.4, fontSize: 15 });
+    });
+    s.addNotes("[≈ 40 s] Nous proposons de commencer petit : un pilote sur quelques démarches fréquentes, comme le capital décès, le foncier et l'état civil, avec des administrations volontaires, pour mesurer les gains sur le terrain. Puis une extension à d'autres communes et ministères, et enfin la généralisation. C'est reproductible : une démarche modélisée une fois sert partout, il n'y a pas de matériel spécifique, et tout se paramètre sans développement.");
   }
 
   // ============================================================ 7. Modèle économique
   {
-    const s = contenu(9, 'Le modèle économique', 'Gratuit pour le citoyen, payé par les bénéficiaires');
+    const s = contenu(14, '7 · Pérennisation', 'Un modèle durable : gratuit pour le citoyen');
     const boite = (nom, x, y, w, h, icn, t, d, fill = C.background2, col = C.text1) => {
       s.addShape(pres.shapes.ROUNDED_RECTANGLE, { objectName: nom, x, y, w, h, rectRadius: 0.1, fill: { color: fill }, line: { color: fill } });
       rond(s, `${nom} icône`, x + 0.15, y + (h - 0.5) / 2, 0.5, icn, fill === C.accent1 ? C.accent4 : C.accent1);
@@ -443,7 +584,8 @@ async function telephone(fichier, sortieNom) {
       ligne(s, `Paiement de ${t}`, 5.45, 3.98, 6.1, y + 0.72, { color: C.accent2, width: 2, dashType: 'dash', beginArrowType: 'triangle' });
     });
     s.addShape(pres.shapes.LINE, { objectName: 'Service vers citoyen', x: 2.9, y: 3.8, w: 0.65, h: 0, line: { color: C.accent1, width: 2, beginArrowType: 'triangle' } });
-    txt(s, 'Légende flux', [{ text: '━ valeur   ', options: { color: C.accent1, bold: true } }, { text: '┅ paiement', options: { color: C.accent2, bold: true } }], { x: M, y: 6.2, w: 4, h: 0.35, fontSize: 13 });
+    txt(s, 'Légende flux', [{ text: '━ valeur   ', options: { color: C.accent1, bold: true } }, { text: '┅ paiement', options: { color: C.accent2, bold: true } }], { x: M, y: 6.2, w: 2.6, h: 0.35, fontSize: 13 });
+    txt(s, 'Ancrage institutionnel', [{ text: 'Ancrage : ', options: { bold: true, color: C.accent4 } }, { text: 'sponsor ministériel, agents « champions » formés, données et code maîtrisés localement.' }], { x: 3.3, y: 6.1, w: 5.6, h: 0.6, fontSize: 12.5 });
     const principes = [
       ['Le suivi de base reste toujours gratuit', 'pour tous les usagers, sans condition.'],
       ["L'administration paie pour un outil", 'qui fait gagner du temps à ses agents et améliore son service.'],
@@ -456,16 +598,16 @@ async function telephone(fichier, sortieNom) {
       s.addImage({ objectName: `Coche principe ${i + 1}`, data: icPrincipe, x: 9.25, y: y + 0.05, w: 0.3, h: 0.3, altText: 'Principe' });
       txt(s, `Principe ${i + 1}`, [{ text: t, options: { bold: true, breakLine: true } }, { text: d, options: { fontSize: 12, color: C.accent5 } }], { x: 9.7, y, w: 3.03, h: 1.0, fontSize: 14 });
     });
-    s.addNotes("Le citoyen ne paie jamais pour suivre son dossier. Ce sont les administrations qui s'abonnent à la plateforme, parce qu'elle fait gagner du temps à leurs agents. Des services optionnels et une interface pour les entreprises pourront compléter. Nous ne fixerons pas de prix à l'aveugle : les tarifs seront construits avec les administrations pilotes, à partir des gains mesurés.");
+    s.addNotes("[≈ 40 s] Le citoyen ne paie jamais pour suivre son dossier. Ce sont les administrations qui s'abonnent à la plateforme, parce qu'elle fait gagner du temps à leurs agents. Des services optionnels et une interface pour les entreprises pourront compléter. Nous ne fixerons pas de prix à l'aveugle : les tarifs seront construits avec les administrations pilotes, à partir des gains mesurés.");
   }
 
   // ============================================================ 8. Clôture
   {
     const s = pres.addSlide({ masterName: 'SUIVO_GARDE' });
-    motif(s, 10, true);
+    motif(s, 15, true);
     txt(s, 'Surtitre demande', 'NOTRE DEMANDE', { x: 0.8, y: 1.0, w: 7, h: 0.4, fontSize: 14, bold: true, color: C.accent2, charSpacing: 2 });
-    txt(s, 'Titre demande', 'Un pilote avec une commune et un tribunal', { x: 0.8, y: 1.45, w: 11.7, h: 0.9, fontSize: 36, bold: true, color: C.background1 });
-    const d = [['Un sponsor', 'au ministère de tutelle'], ['Une commune et un tribunal pilotes', 'pour démarrer sur des procédures fréquentes'], ['Un accompagnement', '(concours, incubation) pour lancer le pilote']];
+    txt(s, 'Titre demande', 'Un pilote avec des administrations volontaires', { x: 0.8, y: 1.45, w: 11.7, h: 0.9, fontSize: 36, bold: true, color: C.background1 });
+    const d = [['Un sponsor', 'au ministère de tutelle'], ['Des administrations pilotes', 'Fonction publique, foncier, état civil'], ['Un accompagnement', '(concours, incubation) pour lancer le pilote']];
     d.forEach(([b, t], i) => {
       const y = 2.85 + i * 0.95;
       s.addShape(pres.shapes.OVAL, { objectName: `Demande ${i + 1}`, x: 0.8, y: y + 0.12, w: 0.55, h: 0.55, fill: { color: C.accent2 }, line: { color: C.accent2 } });
@@ -475,7 +617,7 @@ async function telephone(fichier, sortieNom) {
     txt(s, 'Engagement titre', 'Notre engagement', { x: 8.7, y: 2.85, w: 3.9, h: 0.45, fontSize: 16, bold: true, color: C.accent2 });
     txt(s, 'Engagement texte', 'Mesurer avec vous, sur le terrain, les déplacements évités et les délais gagnés.', { x: 8.7, y: 3.35, w: 3.9, h: 1.6, fontSize: 22, bold: true, color: C.background1 });
     txt(s, 'Vision', "Pour qu'aucun Ivoirien n'ait plus à demander « où en est mon dossier ? »", { x: 0.8, y: 6.0, w: 11.7, h: 0.6, fontSize: 20, italic: true, color: C.background1 });
-    s.addNotes("Nous vous demandons un pilote : un sponsor, une commune et un tribunal, et un accompagnement pour le lancer. Nous ne venons pas avec des chiffres promis : nous venons avec un outil qui fonctionne, et l'engagement de mesurer avec vous, sur le terrain, les déplacements évités et les délais gagnés. Pour qu'aucun Ivoirien n'ait plus à demander « où en est mon dossier ? ». Merci.");
+    s.addNotes("[≈ 30 s] Nous vous demandons un pilote : un sponsor, des administrations volontaires — Fonction publique, foncier, état civil — et un accompagnement pour le lancer. Nous ne venons pas avec des chiffres promis : nous venons avec un outil qui fonctionne, et l'engagement de mesurer avec vous, sur le terrain, les déplacements évités et les délais gagnés. Pour qu'aucun Ivoirien n'ait plus à demander « où en est mon dossier ? ». Merci.");
   }
 
   await pres.writeFile({ fileName: OUT });
