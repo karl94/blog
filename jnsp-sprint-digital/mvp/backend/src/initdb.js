@@ -36,7 +36,7 @@ async function scenario(c, { telephone, nom, procedureId, canal = 'en_ligne', et
     await D.valider(c, numero, await agentDuService(c, d.etape.service_id));
   }
   const d = await D.charger(c, numero);
-  if (fin === 'piece') await D.pieceManquante(c, numero, await agentDuService(c, d.etape.service_id), 'Merci de fournir la copie de la pièce d\'identité du parent.');
+  if (fin === 'piece') await D.pieceManquante(c, numero, await agentDuService(c, d.etape.service_id), 'Merci de fournir deux photos d\'identité récentes.');
   if (fin === 'rejet') await D.rejeter(c, numero, await agentDuService(c, d.etape.service_id), 'Acte introuvable dans le registre de la commune.');
   if (fin === 'retire') await D.remettre(c, numero, await agentDuService(c, d.etapes[0].service_id));
 

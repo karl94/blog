@@ -6,14 +6,14 @@ DROP TYPE IF EXISTS statut_demande, role_utilisateur CASCADE;
 CREATE TYPE role_utilisateur AS ENUM ('usager', 'agent', 'admin');
 CREATE TYPE statut_demande AS ENUM ('SOUMIS', 'EN_COURS', 'ATTENTE_USAGER', 'PRET', 'RETIRE', 'REJETE');
 
--- Service administratif qui porte une étape (guichet, greffe, cabinet du maire…)
+-- Service administratif qui porte une étape (guichet, service instructeur, cabinet du maire…)
 CREATE TABLE services (
   id          SERIAL PRIMARY KEY,
   nom         TEXT NOT NULL,
   organisme   TEXT NOT NULL
 );
 
--- Type de démarche (acte de naissance, certificat de nationalité…)
+-- Type de démarche (acte de naissance, permis de conduire…)
 CREATE TABLE procedures (
   id          SERIAL PRIMARY KEY,
   code        TEXT UNIQUE NOT NULL,

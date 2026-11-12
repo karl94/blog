@@ -37,15 +37,15 @@ test('OTP : mauvais code refusé, bon code accepté', async () => {
 
 test('catalogue : délai total = somme des SLA', async () => {
   const r = await api.get('/api/procedures').expect(200);
-  const nat = r.body.find((p) => p.code === 'CERT_NATIONALITE');
-  assert.equal(nat.etapes.length, 3);
-  assert.equal(nat.delai_total_jours, 10);
+  const permis = r.body.find((p) => p.code === 'PERMIS_CONDUIRE');
+  assert.equal(permis.etapes.length, 3);
+  assert.equal(permis.delai_total_jours, 10);
 });
 
 test('parcours complet : dépôt → étapes → pièce manquante → réponse → prêt → retiré', async () => {
   const awa = await connexion('0700000001');
-  const greffe = await connexion('0700000020');
-  const nationalite = await connexion('0700000021');
+  const guichet = await connexion('0700000020');
+  const permis = await connexion('0700000021');
   const juge = await connexion('0700000022');
   const etatCivil = await connexion('0700000010');
 
@@ -56,47 +56,47 @@ test('parcours complet : dépôt → étapes → pièce manquante → réponse �
   let pub = await api.get(`/api/suivi/${numero}`).expect(200);
   assert.equal(pub.body.statut, 'SOUMIS');
   assert.equal(pub.body.usager, 'A. K.');
-  assert.equal(pub.body.etape_courante.service, 'Greffe — accueil');
+  assert.equal(pub.body.etape_courante.service, 'Guichet des transports');
 
   // Un usager ne peut pas agir comme agent ; un agent d'un autre service non plus
   await api.post(`/api/agent/demandes/${numero}/valider`).set(awa.h).expect(403);
-  await api.post(`/api/agent/demandes/${numero}/valider`).set(nationalite.h).expect(403);
+  await api.post(`/api/agent/demandes/${numero}/valider`).set(permis.h).expect(403);
 
-  // La file du greffe contient le dossier
-  const file = await api.get('/api/agent/file').set(greffe.h).expect(200);
+  // La file du guichet des transports contient le dossier
+  const file = await api.get('/api/agent/file').set(guichet.h).expect(200);
   assert.ok(file.body.some((d) => d.numero === numero && d.niveau === 'vert'));
 
-  await api.post(`/api/agent/demandes/${numero}/valider`).set(greffe.h).expect(200);
+  await api.post(`/api/agent/demandes/${numero}/valider`).set(guichet.h).expect(200);
   pub = await api.get(`/api/suivi/${numero}`).expect(200);
   assert.equal(pub.body.statut, 'EN_COURS');
   assert.equal(pub.body.etape_ordre, 2);
 
   // Pièce manquante : message obligatoire, SLA suspendu
-  await api.post(`/api/agent/demandes/${numero}/piece-manquante`).set(nationalite.h).send({ message: '' }).expect(400);
-  await api.post(`/api/agent/demandes/${numero}/piece-manquante`).set(nationalite.h)
-    .send({ message: 'Copie CNI du père' }).expect(200);
+  await api.post(`/api/agent/demandes/${numero}/piece-manquante`).set(permis.h).send({ message: '' }).expect(400);
+  await api.post(`/api/agent/demandes/${numero}/piece-manquante`).set(permis.h)
+    .send({ message: 'Photos d\'identité récentes' }).expect(200);
   let mine = await api.get(`/api/demandes/${numero}`).set(awa.h).expect(200);
   assert.equal(mine.body.statut, 'ATTENTE_USAGER');
-  assert.equal(mine.body.message_attente, 'Copie CNI du père');
+  assert.equal(mine.body.message_attente, 'Photos d\'identité récentes');
   assert.equal(mine.body.etape_courante.echeance, null);
   // Pendant l'attente, l'agent ne peut pas valider
-  await api.post(`/api/agent/demandes/${numero}/valider`).set(nationalite.h).expect(409);
+  await api.post(`/api/agent/demandes/${numero}/valider`).set(permis.h).expect(409);
 
   // Un autre usager ne peut pas répondre à la place d'Awa
   const autre = await connexion('0709999999');
   await api.post(`/api/demandes/${numero}/repondre`).set(autre.h).send({ commentaire: 'x' }).expect(403);
   await api.get(`/api/demandes/${numero}`).set(autre.h).expect(403);
-  await api.post(`/api/demandes/${numero}/repondre`).set(awa.h).send({ commentaire: 'CNI déposée au greffe' }).expect(200);
+  await api.post(`/api/demandes/${numero}/repondre`).set(awa.h).send({ commentaire: 'Photos déposées au guichet' }).expect(200);
 
-  await api.post(`/api/agent/demandes/${numero}/valider`).set(nationalite.h).expect(200);
+  await api.post(`/api/agent/demandes/${numero}/valider`).set(permis.h).expect(200);
   await api.post(`/api/agent/demandes/${numero}/valider`).set(juge.h).expect(200);
   mine = await api.get(`/api/demandes/${numero}`).set(awa.h).expect(200);
   assert.equal(mine.body.statut, 'PRET');
   assert.ok(mine.body.etapes.every((e) => e.etat === 'fait'));
 
-  // Retrait au guichet de dépôt (greffe), pas par l'état civil
+  // Retrait au guichet de dépôt (guichet des transports), pas par l'état civil
   await api.post(`/api/agent/demandes/${numero}/remettre`).set(etatCivil.h).expect(403);
-  await api.post(`/api/agent/demandes/${numero}/remettre`).set(greffe.h).expect(200);
+  await api.post(`/api/agent/demandes/${numero}/remettre`).set(guichet.h).expect(200);
   mine = await api.get(`/api/demandes/${numero}`).set(awa.h).expect(200);
   assert.equal(mine.body.statut, 'RETIRE');
 

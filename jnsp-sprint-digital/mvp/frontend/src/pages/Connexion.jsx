@@ -7,9 +7,9 @@ const COMPTES_DEMO = [
   ['0700000001', 'Usager — Awa Koné'],
   ['0700000010', 'Agent — État civil (mairie)'],
   ['0700000011', 'Agent — Cabinet du maire'],
-  ['0700000020', 'Agent — Greffe (tribunal)'],
-  ['0700000021', 'Agent — Service nationalité'],
-  ['0700000022', 'Agent — Président du tribunal'],
+  ['0700000020', 'Agent — Guichet des transports'],
+  ['0700000021', 'Agent — Service des permis'],
+  ['0700000022', 'Agent — Délivrance des titres'],
   ['0700000099', 'Admin — Pilotage'],
 ];
 

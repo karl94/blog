@@ -229,7 +229,7 @@ async function telephone(fichier, sortieNom) {
   {
     const s = contenu(3, 'Contexte', 'Trois personnes, une même attente');
     const p = [
-      ['avatar-awa', 'Awa, 29 ans', 'Commerciale à Yopougon · smartphone, WhatsApp', '« Obtenir mon certificat de nationalité pour un concours sans perdre de jours de travail. »', 'Aucune date, des démarcheurs, des allers-retours.'],
+      ['avatar-awa', 'Awa, 29 ans', 'Commerciale à Yopougon · smartphone, WhatsApp', '« Récupérer mon permis de conduire pour mon travail, sans perdre de journées. »', 'Aucune date, des démarcheurs, des allers-retours.'],
       ['avatar-konan', 'Konan, 52 ans', 'Planteur à Daloa · téléphone basique, lit peu le français', '« Obtenir l\'acte de naissance de mon fils sans aller trois fois en ville. »', 'Le coût du transport ; il dépend de ses enfants pour lire.'],
       ['avatar-bamba', 'Mme Bamba, 41 ans', 'Agente de guichet en mairie · reçoit les usagers toute la journée', '« Répondre vite aux usagers et avoir moins de monde devant mon guichet. »', 'Questions répétitives, outils lents.'],
     ];
@@ -250,7 +250,7 @@ async function telephone(fichier, sortieNom) {
   {
     const s = contenu(4, 'La solution', 'Un numéro de suivi, une timeline, des notifications');
     const h = 5.05, w1 = h * telSuivi.ratio;
-    s.addImage({ objectName: 'Capture suivi public', path: telSuivi.chemin, x: M + 0.1, y: 1.65, w: w1, h, altText: 'Suivi public du dossier : étape 2 sur 3, service responsable, retard de 5 jours', shadow: ombre() });
+    s.addImage({ objectName: 'Capture suivi public', path: telSuivi.chemin, x: M + 0.1, y: 1.65, w: w1, h, altText: 'Suivi public du dossier de permis de conduire : étape 2 sur 3, service responsable, retard', shadow: ombre() });
     s.addImage({ objectName: 'Capture mes dossiers', path: telDossiers.chemin, x: M + w1 + 0.45, y: 1.65, w: w1, h, altText: 'Liste des dossiers de l\'usager avec leur progression', shadow: ombre() });
     // Repères numérotés sur la capture (positions relatives à l'image)
     const reperes = [[0.27, 'N° de suivi unique'], [0.355, 'Étape et service responsable'], [0.45, 'Délai restant ou retard']];
