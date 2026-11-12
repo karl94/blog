@@ -125,6 +125,14 @@ async function telephone(fichier, sortieNom) {
   const telAccueil = await telephone('01-accueil-mobile.png', 'tel-accueil');
   const telSuivi = await telephone('02-suivi-public-mobile.png', 'tel-suivi');
   const telDossiers = await telephone('03-mes-dossiers-mobile.png', 'tel-dossiers');
+  // Captures « ordinateur » recadrées au format 16:10 pour la diapositive « ce que voit chaque acteur »
+  const recadrer = async (f, nom) => {
+    const sortie = path.join(PNG_DIR, `${nom}.png`);
+    await sharp(path.join(CAP, f)).extract({ left: 0, top: 0, width: 2560, height: 1600 }).resize({ width: 1280 }).png().toFile(sortie);
+    return sortie;
+  };
+  const ecranAgent = await recadrer('07-file-agent.png', 'ecran-agent');
+  const ecranPilotage = await recadrer('10-pilotage.png', 'ecran-pilotage');
   const ic = {};
   for (const [k, C] of Object.entries({ suivre: fa.FaMobileScreenButton, notif: fa.FaBell, piece: fa.FaFileArrowUp, relance: fa.FaBullhorn,
     depot: fa.FaInbox, routage: fa.FaRoute, suivi: fa.FaLocationDot, retrait: fa.FaBoxOpen, etat: fa.FaBuildingColumns,
@@ -158,7 +166,7 @@ async function telephone(fichier, sortieNom) {
     slideNumber: { x: 12.2, y: 7.02, w: 0.55, h: 0.3, fontSize: 11, color: C.accent5, align: 'right' },
   });
 
-  const TOTAL = 8;
+  const TOTAL = 10;
   // Motif récurrent : le « suivi de colis » du deck (points d'étape en haut à droite)
   function motif(s, n, sombre = false) {
     const x0 = 10.55, x1 = 12.65, y = 0.62;
@@ -308,9 +316,96 @@ async function telephone(fichier, sortieNom) {
     s.addNotes("Concrètement : on dépose en ligne ou au guichet et on reçoit un numéro. Le dossier passe de service en service, chacun avec son délai. L'usager est notifié à chaque étape, et l'agent n'a qu'un clic à faire. À la fin, un seul déplacement : pour retirer le document, ou aucun si c'est un paiement. Sans smartphone, le reçu QR, les SMS et l'USSD prennent le relais.");
   }
 
+  // ============================================================ 6. Cas pratique — le parcours acteur par acteur
+  {
+    const s = contenu(6, 'Cas pratique', 'Le capital décès d\'Awa, du dépôt au retrait');
+    const couloirs = [
+      [ic.citoyen, C.accent2, 'Awa', 'représentante des orphelins'],
+      [ic.depot, C.accent1, 'Guichet', 'Fonction publique'],
+      [ic.chef, C.accent1, 'Liquidation', 'des droits'],
+      [ic.argent, C.accent1, 'Trésor public', 'paiement'],
+      [ic.sms, C.accent2, 'SUIVO', 'SMS et délais'],
+    ];
+    const phases = ['Dépôt', 'Contrôle', 'Complément', 'Liquidation', 'Retard', 'Paiement', 'Retrait'];
+    const xL = M, wL = 1.85, x0 = M + wL + 0.1, cw = (13.333 - M - x0) / phases.length, y0 = 2.05, lh = 0.86;
+    // En-tête des phases (flèche du temps)
+    s.addShape(pres.shapes.RIGHT_ARROW, { objectName: 'Flèche du temps', x: x0, y: 1.6, w: 13.333 - M - x0, h: 0.36, fill: { color: C.background2 }, line: { color: C.background2 } });
+    phases.forEach((ph, j) => txt(s, `Phase ${ph}`, ph, { x: x0 + j * cw, y: 1.6, w: cw, h: 0.36, fontSize: 12, bold: true, color: C.accent4, align: 'center', valign: 'middle' }));
+    couloirs.forEach(([icn, col, nom, sous], i) => {
+      const y = y0 + i * lh;
+      s.addShape(pres.shapes.ROUNDED_RECTANGLE, { objectName: `Couloir ${nom}`, x: xL, y, w: 13.333 - 2 * M, h: lh - 0.08, rectRadius: 0.06, fill: { color: i % 2 ? C.background1 : C.background2 }, line: { color: C.background2, width: 1 } });
+      rond(s, `Icône ${nom}`, xL + 0.08, y + (lh - 0.08 - 0.46) / 2, 0.46, icn, col);
+      txt(s, `Acteur ${nom}`, [{ text: nom, options: { bold: true, breakLine: true } }, { text: sous, options: { fontSize: 10, color: C.accent5 } }], { x: xL + 0.62, y, w: wL - 0.62, h: lh - 0.08, fontSize: 13, valign: 'middle' });
+    });
+    // Événements : [phase, couloir, texte] dans l'ordre chronologique
+    const ev = [
+      [0, 0, 'Dépose son dossier au guichet'], [0, 1, 'Enregistre, remet un reçu QR'], [0, 4, 'SMS : dossier enregistré'],
+      [1, 1, 'Constate une pièce manquante'], [1, 4, 'SMS : action requise'],
+      [2, 0, 'Envoie la pièce à distance'], [2, 1, 'Valide l\'étape 1 en 1 clic'],
+      [3, 2, 'Calcule les droits des orphelins'], [3, 4, 'SMS : étape 2/3'],
+      [4, 4, 'Délai dépassé : alerte au service'], [4, 0, 'Relance en 1 clic'], [4, 2, 'Valide l\'étape 2'],
+      [5, 3, 'Met en paiement'], [5, 4, 'SMS : dossier finalisé'],
+      [6, 0, 'Se présente au Trésor'], [6, 3, 'Remet le paiement, clôt le dossier'],
+    ];
+    ev.forEach(([j, i, t], k) => {
+      const x = x0 + j * cw + 0.06, y = y0 + i * lh + 0.06, w = cw - 0.12, h = lh - 0.2;
+      const suivo = i === 4;
+      s.addShape(pres.shapes.ROUNDED_RECTANGLE, { objectName: `Événement ${k + 1}`, x, y, w, h, rectRadius: 0.06, fill: { color: suivo ? 'FFF4EA' : C.background1 }, line: { color: suivo ? C.accent2 : C.accent1, width: 1.25 } });
+      s.addShape(pres.shapes.OVAL, { objectName: `Numéro événement ${k + 1}`, x: x - 0.03, y: y - 0.03, w: 0.27, h: 0.27, fill: { color: suivo ? C.accent2 : C.accent1 }, line: { color: C.background1, width: 1 } });
+      txt(s, `Numéro ${k + 1} texte`, String(k + 1), { x: x - 0.03, y: y - 0.03, w: 0.27, h: 0.27, fontSize: 9, bold: true, color: C.background1, align: 'center', valign: 'middle' });
+      txt(s, `Texte événement ${k + 1}`, t, { x: x + 0.27, y, w: w - 0.32, h, fontSize: 10.5, valign: 'middle' });
+    });
+    txt(s, 'Bilan cas pratique', [{ text: 'Résultat : ', options: { bold: true, color: C.accent1 } }, { text: 'Awa ne se déplace que pour déposer et pour retirer ; chaque acteur sait à tout moment qui détient le dossier.' }], { x: M, y: 6.42, w: 13.333 - 2 * M, h: 0.4, fontSize: 14 });
+    s.addNotes("Prenons un cas réel : Awa a perdu son père, fonctionnaire, et demande le capital décès pour ses jeunes frères. Elle dépose son dossier au guichet de la Fonction publique, qui l'enregistre et lui remet un reçu avec un QR code ; elle reçoit un SMS. L'agent constate qu'il manque un extrait de naissance : Awa est prévenue et l'envoie à distance. Le dossier passe à la liquidation des droits. Le délai est dépassé : SUIVO alerte le service et Awa relance en un clic ; l'étape est validée. Le Trésor met en paiement, Awa reçoit le SMS « dossier finalisé » et se déplace une seule fois pour le retrait.");
+  }
+
+  // ============================================================ 7. Cas pratique — ce que reçoit Awa, ce que voit chaque acteur
+  {
+    const s = contenu(7, 'Cas pratique', 'Ce que reçoit Awa, ce que voit chaque acteur');
+    // Téléphone avec les SMS reçus
+    const px = M + 0.2, py = 1.6, pw = 3.55, ph = 5.2;
+    s.addShape(pres.shapes.ROUNDED_RECTANGLE, { objectName: 'Téléphone', x: px, y: py, w: pw, h: ph, rectRadius: 0.35, fill: { color: H.dk1 }, line: { color: H.dk1 }, shadow: ombre() });
+    s.addShape(pres.shapes.ROUNDED_RECTANGLE, { objectName: 'Écran du téléphone', x: px + 0.12, y: py + 0.12, w: pw - 0.24, h: ph - 0.24, rectRadius: 0.26, fill: { color: 'F1F5F9' }, line: { color: 'F1F5F9' } });
+    s.addShape(pres.shapes.RECTANGLE, { objectName: 'Barre messages', x: px + 0.12, y: py + 0.3, w: pw - 0.24, h: 0.42, fill: { color: C.accent1 }, line: { color: C.accent1 } });
+    txt(s, 'Titre messages', 'Messages · SUIVO', { x: px + 0.3, y: py + 0.3, w: pw - 0.5, h: 0.42, fontSize: 12, bold: true, color: C.background1, valign: 'middle' });
+    const sms = [
+      'Dossier SUI-2026-000001 enregistré. Suivez-le avec ce numéro.',
+      'Action requise : merci de fournir les extraits d\'acte de naissance des orphelins.',
+      'Étape 2/3 « Liquidation des droits » — Ministère de la Fonction Publique.',
+      'Étape 3/3 « Mise en paiement » — Trésor public.',
+      'Votre dossier est finalisé. Rendez-vous : service des paiements, Trésor public.',
+    ];
+    let yb = py + 0.85;
+    sms.forEach((t, k) => {
+      const h = 0.74, fin = k === sms.length - 1;
+      s.addShape(pres.shapes.ROUNDED_RECTANGLE, { objectName: `SMS ${k + 1}`, x: px + 0.25, y: yb, w: pw - 0.6, h, rectRadius: 0.1, fill: { color: fin ? C.accent6 : C.background1 }, line: { color: k === 1 ? C.accent2 : 'E2E8F0', width: k === 1 ? 1.5 : 0.75 } });
+      txt(s, `Texte SMS ${k + 1}`, t, { x: px + 0.35, y: yb, w: pw - 0.8, h, fontSize: 10, valign: 'middle' });
+      yb += h + 0.1;
+    });
+    // Ce que voit chaque acteur
+    const xr = px + pw + 0.55, wr = 13.333 - M - xr;
+    const ecrans = [
+      [ecranAgent, 'L\'agent de liquidation', 'Le dossier relancé remonte en tête de sa file, en rouge ; il le valide en 1 clic.'],
+      [ecranPilotage, 'Le chef de service', 'Il voit les retards par service et le délai réel de chaque étape.'],
+    ];
+    const ew = (wr - 0.3) / 2, eh = ew / 1.6;
+    ecrans.forEach(([f, t, d], k) => {
+      const x = xr + k * (ew + 0.3);
+      s.addShape(pres.shapes.RECTANGLE, { objectName: `Barre navigateur ${k + 1}`, x, y: 1.75, w: ew, h: 0.16, fill: { color: 'E2E8F0' }, line: { color: 'CBD5E1', width: 0.75 } });
+      s.addImage({ objectName: `Écran ${t}`, path: f, x, y: 1.91, w: ew, h: eh, altText: `${t} : ${d}` });
+      s.addShape(pres.shapes.RECTANGLE, { objectName: `Cadre écran ${k + 1}`, x, y: 1.75, w: ew, h: eh + 0.16, fill: { color: 'FFFFFF', transparency: 100 }, line: { color: 'CBD5E1', width: 0.75 } });
+      txt(s, `Titre ${t}`, t, { x, y: 2.05 + eh, w: ew, h: 0.35, fontSize: 14, bold: true, color: C.accent1 });
+      txt(s, `Texte ${t}`, d, { x, y: 2.42 + eh, w: ew, h: 0.6, fontSize: 13 });
+    });
+    carte(s, 'Encadré traçabilité', xr, 5.45, wr, 1.3, C.background2);
+    rond(s, 'Icône traçabilité', xr + 0.25, 5.78, 0.62, ic.etat, C.accent4);
+    txt(s, 'Texte traçabilité', [{ text: 'Le ministère ', options: { bold: true, color: C.accent4 } }, { text: 'dispose de l\'historique complet du dossier : qui a fait quoi, quand, et si le délai a été respecté. Chaque action est enregistrée dans un journal qui ne peut pas être modifié.' }], { x: xr + 1.05, y: 5.45, w: wr - 1.25, h: 1.3, fontSize: 13, valign: 'middle' });
+    s.addNotes("Voici ce que reçoit Awa : un SMS à chaque étape, sans jamais avoir à demander. De l'autre côté, l'agent de liquidation voit le dossier relancé remonter en tête de sa file ; il le valide en un clic. Le chef de service voit les retards de chaque service. Et le ministère dispose de l'historique complet et infalsifiable du dossier.");
+  }
+
   // ============================================================ 6. Valeur ajoutée par acteur
   {
-    const s = contenu(6, 'Valeur ajoutée', 'Ce que SUIVO change pour chaque acteur');
+    const s = contenu(8, 'Valeur ajoutée', 'Ce que SUIVO change pour chaque acteur');
     const acteurs = [
       [ic.citoyen, C.accent1, 'Le citoyen', ['Sait où est son dossier, qui le traite et quand il sera prêt', 'Agit à distance : pièce manquante, relance', 'Ne se déplace que pour retirer son document']],
       [ic.sms, C.accent2, 'L\'usager sans smartphone', ['Dépôt assisté au guichet, reçu avec QR code', 'Notifications par SMS, statut par code USSD', 'Un proche peut suivre le dossier avec le numéro']],
@@ -332,7 +427,7 @@ async function telephone(fichier, sortieNom) {
 
   // ============================================================ 7. Modèle économique
   {
-    const s = contenu(7, 'Le modèle économique', 'Gratuit pour le citoyen, payé par les bénéficiaires');
+    const s = contenu(9, 'Le modèle économique', 'Gratuit pour le citoyen, payé par les bénéficiaires');
     const boite = (nom, x, y, w, h, icn, t, d, fill = C.background2, col = C.text1) => {
       s.addShape(pres.shapes.ROUNDED_RECTANGLE, { objectName: nom, x, y, w, h, rectRadius: 0.1, fill: { color: fill }, line: { color: fill } });
       rond(s, `${nom} icône`, x + 0.15, y + (h - 0.5) / 2, 0.5, icn, fill === C.accent1 ? C.accent4 : C.accent1);
@@ -367,7 +462,7 @@ async function telephone(fichier, sortieNom) {
   // ============================================================ 8. Clôture
   {
     const s = pres.addSlide({ masterName: 'SUIVO_GARDE' });
-    motif(s, 8, true);
+    motif(s, 10, true);
     txt(s, 'Surtitre demande', 'NOTRE DEMANDE', { x: 0.8, y: 1.0, w: 7, h: 0.4, fontSize: 14, bold: true, color: C.accent2, charSpacing: 2 });
     txt(s, 'Titre demande', 'Un pilote avec une commune et un tribunal', { x: 0.8, y: 1.45, w: 11.7, h: 0.9, fontSize: 36, bold: true, color: C.background1 });
     const d = [['Un sponsor', 'au ministère de tutelle'], ['Une commune et un tribunal pilotes', 'pour démarrer sur des procédures fréquentes'], ['Un accompagnement', '(concours, incubation) pour lancer le pilote']];
