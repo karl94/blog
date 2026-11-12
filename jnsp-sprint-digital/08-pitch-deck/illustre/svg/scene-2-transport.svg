@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" width="320" height="240"><rect width="320" height="240" rx="22" fill="#EEF6F1"/>
+    <rect x="0" y="182" width="320" height="58" fill="#CBD5E1"/>
+    <rect x="20" y="206" width="40" height="7" rx="3" fill="#fff"/><rect x="140" y="206" width="40" height="7" rx="3" fill="#fff"/><rect x="260" y="206" width="40" height="7" rx="3" fill="#fff"/>
+    <rect x="44" y="84" width="230" height="102" rx="22" fill="#F28C28"/>
+    <rect x="62" y="100" width="44" height="36" rx="7" fill="#fff"/><rect x="116" y="100" width="44" height="36" rx="7" fill="#fff"/><rect x="170" y="100" width="44" height="36" rx="7" fill="#fff"/><rect x="224" y="100" width="34" height="36" rx="7" fill="#fff"/>
+    <rect x="44" y="150" width="230" height="10" fill="#17603C"/>
+    <circle cx="96" cy="188" r="20" fill="#0F172A"/><circle cx="96" cy="188" r="8" fill="#CBD5E1"/>
+    <circle cx="226" cy="188" r="20" fill="#0F172A"/><circle cx="226" cy="188" r="8" fill="#CBD5E1"/>
+    <circle cx="268" cy="44" r="30" fill="#fff" stroke="#17603C" stroke-width="5"/>
+    <text x="268" y="52" text-anchor="middle" font-family="Inter" font-weight="800" font-size="22" fill="#17603C">F</text>
+    <text x="200" y="52" text-anchor="end" font-family="Inter" font-weight="800" font-size="22" fill="#0F172A">– 1 000</text></svg>
